@@ -424,6 +424,101 @@
             .section {
                 padding: 60px 0;
             }
+            
+            /* 手机端商品卡片样式 */
+            .product-cards-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 16px;
+                width: 100%;
+                overflow-x: hidden;
+            }
+            
+            .product-card {
+                max-width: 100%;
+                min-width: auto;
+                margin-bottom: 16px;
+                min-height: auto;
+                flex-direction: column;
+                padding: 16px;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            
+            .product-card img {
+                width: 100%;
+                height: 200px;
+                margin-bottom: 12px;
+            }
+            
+            .product-card .btn {
+                margin-left: 0;
+                margin-bottom: 12px;
+                width: 100%;
+                min-width: auto;
+                padding: 12px 24px;
+                font-size: 14px;
+            }
+            
+            .product-card .product-card-content div:first-child {
+                font-size: 18px;
+                margin-bottom: 8px;
+            }
+            
+            .product-card .product-card-content div:last-child {
+                font-size: 14px;
+            }
+            
+            /* 轮播图手机端调整 */
+            .activity-carousel {
+                max-width: 100%;
+                margin: 0;
+                border-radius: 0;
+                aspect-ratio: 16/12;
+            }
+            
+            .carousel-caption {
+                font-size: 16px;
+                padding: 12px 0;
+            }
+            
+            .caption-title {
+                font-size: 18px;
+            }
+            
+            .caption-desc {
+                font-size: 12px;
+            }
+            
+            /* 容器宽度限制 */
+            .container {
+                padding: 0 16px;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+            
+            /* 页面整体宽度控制 */
+            body {
+                overflow-x: hidden;
+                width: 100%;
+            }
+            
+            /* 轮播图按钮调整 */
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 24px;
+            }
+            
+            .carousel-btn.prev {
+                left: 8px;
+            }
+            
+            .carousel-btn.next {
+                right: 8px;
+            }
         }
         .product-slider {
             display: grid;
@@ -580,6 +675,15 @@
             padding-top: 130px;
             /* header高度+间距 */
             box-sizing: border-box;
+        }
+        
+        @media (max-width: 768px) {
+            .carousel-section {
+                max-width: 100%;
+                padding-top: 100px;
+                padding-left: 0;
+                padding-right: 0;
+            }
         }
         .caption-title {
             font-size: 22px;
@@ -757,24 +861,30 @@
     <!-- 5. Local一日游拼接图和描述 -->
     <section class="section" style="background:#fff;border-radius:18px;max-width:1200px;margin:48px auto 0 auto;box-shadow:0 4px 24px rgba(112,130,56,0.13);padding:24px;">
       <h2 class="section-title" style="color:#708238;text-align:center;margin-bottom:32px;">Day Local</h2>
-      <div style="display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;">
-        <div style="flex:1;min-width:220px;max-width:30%;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(112,130,56,0.10);padding:12px;display:flex;flex-direction:column;align-items:center;">
-          <img src="images/熊猫1.png" style="width:100%;height:200px;object-fit:cover;border-radius:8px;margin-bottom:12px;">
-          <div style="font-size:18px;font-weight:600;color:#38441b;margin:0 0 4px 0;" data-i18n="Panda (Morning)">Panda (Morning)</div>
-          <div style="font-size:14px;color:#708238;text-align:center;" data-i18n="Visit Chengdu Panda Base and meet adorable pandas">Visit Chengdu Panda Base and meet adorable pandas</div>
-          <button class="btn btn-outline section-btn" style="margin-top:10px;min-width:100px;" data-i18n="Join now">Join now</button>
+      <div class="product-cards-container" style="display:flex;flex-direction:column;gap:24px;align-items:center;">
+        <div class="product-card" style="width:100%;max-width:600px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(112,130,56,0.10);padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;">
+          <img src="images/熊猫1.png" style="width:100%;height:250px;object-fit:cover;border-radius:8px;margin-bottom:16px;">
+          <button class="btn btn-outline section-btn" style="margin-bottom:16px;min-width:150px;padding:12px 32px;font-size:16px;" data-i18n="Experience now">Experience now</button>
+          <div style="text-align:center;">
+            <div style="font-size:20px;font-weight:600;color:#38441b;margin:0 0 8px 0;" data-i18n="Panda (Morning)">Panda (Morning)</div>
+            <div style="font-size:16px;color:#708238;text-align:center;" data-i18n="Visit Chengdu Panda Base and meet adorable pandas">Visit Chengdu Panda Base and meet adorable pandas</div>
+          </div>
         </div>
-        <div style="flex:1;min-width:220px;max-width:30%;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(112,130,56,0.10);padding:12px;display:flex;flex-direction:column;align-items:center;">
-          <img src="images/蜀宴赋.jpg" style="width:100%;height:200px;object-fit:cover;border-radius:8px;margin-bottom:12px;">
-          <div style="font-size:18px;font-weight:600;color:#38441b;margin:0 0 4px 0;" data-i18n="Imperial Banquet (Lunch)">Imperial Banquet (Lunch)</div>
-          <div style="font-size:14px;color:#708238;text-align:center;" data-i18n="Enjoy exquisite Sichuan cuisine and cultural show">Enjoy exquisite Sichuan cuisine and cultural show</div>
-          <button class="btn btn-outline section-btn" style="margin-top:10px;min-width:100px;" data-i18n="Join now">Join now</button>
+        <div class="product-card" style="width:100%;max-width:600px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(112,130,56,0.10);padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;">
+          <img src="images/蜀宴赋.jpg" style="width:100%;height:250px;object-fit:cover;border-radius:8px;margin-bottom:16px;">
+          <button class="btn btn-outline section-btn" style="margin-bottom:16px;min-width:150px;padding:12px 32px;font-size:16px;" data-i18n="Experience now">Experience now</button>
+          <div style="text-align:center;">
+            <div style="font-size:20px;font-weight:600;color:#38441b;margin:0 0 8px 0;" data-i18n="Imperial Banquet (Lunch)">Imperial Banquet (Lunch)</div>
+            <div style="font-size:16px;color:#708238;text-align:center;" data-i18n="Enjoy exquisite Sichuan cuisine and cultural show">Enjoy exquisite Sichuan cuisine and cultural show</div>
+          </div>
         </div>
-        <div style="flex:1;min-width:220px;max-width:30%;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(112,130,56,0.10);padding:12px;display:flex;flex-direction:column;align-items:center;">
-          <img src="images/文化一日.jpg" style="width:100%;height:200px;object-fit:cover;border-radius:8px;margin-bottom:12px;">
-          <div style="font-size:18px;font-weight:600;color:#38441b;margin:0 0 4px 0;" data-i18n="Sichuan Opera (Afternoon)">Sichuan Opera (Afternoon)</div>
-          <div style="font-size:14px;color:#708238;text-align:center;" data-i18n="Face-changing, fire-spitting, and more">Face-changing, fire-spitting, and more</div>
-          <button class="btn btn-outline section-btn" style="margin-top:10px;min-width:100px;" data-i18n="Join now">Join now</button>
+        <div class="product-card" style="width:100%;max-width:600px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(112,130,56,0.10);padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;">
+          <img src="images/文化一日.jpg" style="width:100%;height:250px;object-fit:cover;border-radius:8px;margin-bottom:16px;">
+          <button class="btn btn-outline section-btn" style="margin-bottom:16px;min-width:150px;padding:12px 32px;font-size:16px;" data-i18n="Experience now">Experience now</button>
+          <div style="text-align:center;">
+            <div style="font-size:20px;font-weight:600;color:#38441b;margin:0 0 8px 0;" data-i18n="Sichuan Opera (Afternoon)">Sichuan Opera (Afternoon)</div>
+            <div style="font-size:16px;color:#708238;text-align:center;" data-i18n="Face-changing, fire-spitting, and more">Face-changing, fire-spitting, and more</div>
+          </div>
         </div>
       </div>
       <div style="text-align:center;margin-top:24px;">
