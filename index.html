@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="HereNative - 探索真实的中国">HereNative - 探索真实的中国</title>
+    <meta http-equiv="refresh" content="0; url=herenative.html">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #708238, #55612b);
+            color: white;
+        }
+        .loading {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .link {
+            color: #bfc7b1;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+        .translate-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .translate-menu {
+            position: fixed;
+            top: 60px;
+            right: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+        }
+        .translate-option {
+            padding: 12px 24px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            color: #333;
+            transition: background 0.2s;
+        }
+        .translate-option:hover {
+            background: #f8f9fa;
+        }
+        .translate-option:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <button class="translate-btn" id="translate-btn" data-i18n="翻译">翻译</button>
+    <div class="translate-menu" id="translate-menu">
+        <div class="translate-option" data-lang="zh">中文</div>
+        <div class="translate-option" data-lang="en">English</div>
+        <div class="translate-option" data-lang="ko">한국어</div>
+        <div class="translate-option" data-lang="ja">日本語</div>
+        <div class="translate-option" data-lang="th">ไทย</div>
+        <div class="translate-option" data-lang="ms">Bahasa Melayu</div>
+        <div class="translate-option" data-lang="vi">Tiếng Việt</div>
+    </div>
+    
+    <div class="loading" data-i18n="正在跳转到 HereNative...">正在跳转到 HereNative...</div>
+    <p data-i18n="如果没有自动跳转，请">如果没有自动跳转，请 <a href="herenative.html" class="link" data-i18n="点击这里">点击这里</a></p>
+
+    <script>
+        const translations = {
+            en: {
+                "HereNative - 探索真实的中国": "HereNative - Explore the Real China",
+                "正在跳转到 HereNative...": "Redirecting to HereNative...",
+                "如果没有自动跳转，请": "If not automatically redirected, please",
+                "点击这里": "click here",
+                "翻译": "Translate"
+            },
+            zh: {
+                "HereNative - 探索真实的中国": "HereNative - 探索真实的中国",
+                "正在跳转到 HereNative...": "正在跳转到 HereNative...",
+                "如果没有自动跳转，请": "如果没有自动跳转，请",
+                "点击这里": "点击这里",
+                "翻译": "翻译"
+            },
+            ko: {
+                "HereNative - 探索真实的中国": "HereNative - 진짜 중국 탐험",
+                "正在跳转到 HereNative...": "HereNative로 리다이렉트 중...",
+                "如果没有自动跳转，请": "자동으로 리다이렉트되지 않으면",
+                "点击这里": "여기를 클릭하세요",
+                "翻译": "번역"
+            },
+            ja: {
+                "HereNative - 探索真实的中国": "HereNative - 本物の中国を探索",
+                "正在跳转到 HereNative...": "HereNativeにリダイレクト中...",
+                "如果没有自动跳转，请": "自動的にリダイレクトされない場合は",
+                "点击这里": "ここをクリックしてください",
+                "翻译": "翻訳"
+            },
+            th: {
+                "HereNative - 探索真实的中国": "HereNative - สำรวจจีนที่แท้จริง",
+                "正在跳转到 HereNative...": "กำลังเปลี่ยนเส้นทางไปยัง HereNative...",
+                "如果没有自动跳转，请": "หากไม่เปลี่ยนเส้นทางโดยอัตโนมัติ กรุณา",
+                "点击这里": "คลิกที่นี่",
+                "翻译": "แปล"
+            },
+            ms: {
+                "HereNative - 探索真实的中国": "HereNative - Jelajahi China Sebenar",
+                "正在跳转到 HereNative...": "Mengalihkan ke HereNative...",
+                "如果没有自动跳转，请": "Jika tidak dialihkan secara automatik, sila",
+                "点击这里": "klik di sini",
+                "翻译": "Terjemah"
+            },
+            vi: {
+                "HereNative - 探索真实的中国": "HereNative - Khám phá Trung Quốc thực sự",
+                "正在跳转到 HereNative...": "Đang chuyển hướng đến HereNative...",
+                "如果没有自动跳转，请": "Nếu không tự động chuyển hướng, vui lòng",
+                "点击这里": "nhấp vào đây",
+                "翻译": "Dịch"
+            }
+        };
+
+        function setLang(lang) {
+            localStorage.setItem('lang', lang);
+            applyTranslation(lang);
+        }
+
+        function applyTranslation(lang) {
+            const dict = translations[lang];
+            if (!dict) return;
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) el.textContent = dict[key];
+            });
+            
+            // 更新页面标题
+            const title = document.querySelector('title[data-i18n]');
+            if (title && dict[title.getAttribute('data-i18n')]) {
+                document.title = dict[title.getAttribute('data-i18n')];
+            }
+        }
+
+        // 翻译按钮功能
+        document.getElementById('translate-btn').onclick = function(e) {
+            e.stopPropagation();
+            const menu = document.getElementById('translate-menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        };
+
+        document.querySelectorAll('.translate-option').forEach(opt => {
+            opt.onclick = function() {
+                setLang(this.dataset.lang);
+                document.getElementById('translate-menu').style.display = 'none';
+            };
+        });
+
+        document.body.addEventListener('click', function() {
+            document.getElementById('translate-menu').style.display = 'none';
+        });
+
+        // 页面加载时应用语言设置
+        window.addEventListener('DOMContentLoaded', function() {
+            const lang = localStorage.getItem('lang');
+            if (lang) {
+                applyTranslation(lang);
+            }
+        });
+    </script>
+</body>
+</html> 

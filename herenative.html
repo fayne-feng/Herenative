@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DayLocal - 探索真实的中国</title>
+    <title>HereNative - 探索真实的中国</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -480,16 +480,16 @@
             }
             
             .carousel-caption {
-                font-size: 16px;
-                padding: 12px 0;
+                font-size: 14px;
+                padding: 8px 0;
             }
             
             .caption-title {
-                font-size: 18px;
+                font-size: 16px;
             }
             
             .caption-desc {
-                font-size: 12px;
+                font-size: 10px;
             }
             
             /* 容器宽度限制 */
@@ -614,12 +614,12 @@
             bottom: 0;
             background: rgba(56,68,27,0.65);
             color: #fff;
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 600;
-            padding: 18px 0;
+            padding: 12px 0;
             text-align: center;
             border-radius: 0 0 18px 18px;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
         }
         .carousel-btn {
             position: absolute;
@@ -686,12 +686,12 @@
             }
         }
         .caption-title {
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 600;
             margin-bottom: 2px;
         }
         .caption-desc {
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 400;
             color: #e0e2dd;
             margin-bottom: 0;
@@ -795,7 +795,10 @@
     <header>
       <div class="container">
         <nav class="navbar">
-          <a href="#" class="logo">Herenative</a>
+          <a href="#" class="logo">
+            <img src="images/商标.png" alt="商标" style="height:32px;width:32px;margin-right:8px;vertical-align:middle;">
+            Herenative
+          </a>
           <ul class="nav-links">
             <li>
               <span id="city-select-btn">成都游玩</span>
@@ -828,15 +831,15 @@
     <!-- 4. 活动轮播图升级 - 修改Chengdu文字样式 -->
     <section class="carousel-section">
       <div class="activity-carousel" style="position:relative;">
-        <div style="position:absolute;left:32px;top:24px;z-index:10;">
-          <span style="font-size:40px;font-weight:800;color:#ffffff;padding:6px 32px 6px 18px;border-radius:12px;letter-spacing:2px;">Chengdu</span>
+        <div style="position:absolute;left:12px;top:8px;z-index:10;">
+          <span style="font-size:24px;font-weight:800;color:#ffffff;padding:3px 18px 3px 8px;border-radius:8px;letter-spacing:1px;">Chengdu</span>
         </div>
         <div class="carousel-track">
           <div class="carousel-item active">
-            <img src="images/熊猫1.png" alt="Panda Feeding (Chengdu Base)">
+            <img src="images/熊猫1.png" alt="Chengdu All-Day Packed">
             <div class="carousel-caption">
-              <div class="caption-title">Panda Feeding (Chengdu Base)</div>
-              <div class="caption-desc">Get close to adorable pandas and experience their daily life at Chengdu Panda Base</div>
+              <div class="caption-title">Chengdu All-Day Packed</div>
+              <div class="caption-desc">Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise</div>
             </div>
           </div>
           <div class="carousel-item">
@@ -864,36 +867,26 @@
       <div class="product-cards-container" style="display:flex;flex-direction:column;gap:24px;align-items:center;">
         <div class="product-card" style="width:100%;max-width:600px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(112,130,56,0.10);padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;">
           <img src="images/熊猫1.png" style="width:100%;height:250px;object-fit:cover;border-radius:8px;margin-bottom:16px;">
-          <button class="btn btn-outline section-btn" style="margin-bottom:16px;min-width:150px;padding:12px 32px;font-size:16px;" data-i18n="Experience now">Experience now</button>
+          <a href="chengdu-all-day-packed.html" class="btn btn-primary section-btn" style="margin-bottom:16px;min-width:150px;padding:12px 32px;font-size:16px;text-decoration:none;text-align:center;display:block;" data-i18n="Experience now">Experience now</a>
           <div style="text-align:center;">
-            <div style="font-size:20px;font-weight:600;color:#38441b;margin:0 0 8px 0;" data-i18n="Panda (Morning)">Panda (Morning)</div>
-            <div style="font-size:16px;color:#708238;text-align:center;" data-i18n="Visit Chengdu Panda Base and meet adorable pandas">Visit Chengdu Panda Base and meet adorable pandas</div>
+            <div style="font-size:20px;font-weight:600;color:#38441b;margin:0 0 8px 0;" data-i18n="Chengdu All-Day Packed">Chengdu All-Day Packed</div>
+            <div style="font-size:16px;color:#708238;text-align:center;" data-i18n="Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise">Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise</div>
           </div>
         </div>
         <div class="product-card" style="width:100%;max-width:600px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(112,130,56,0.10);padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;">
           <img src="images/蜀宴赋.jpg" style="width:100%;height:250px;object-fit:cover;border-radius:8px;margin-bottom:16px;">
-          <button class="btn btn-outline section-btn" style="margin-bottom:16px;min-width:150px;padding:12px 32px;font-size:16px;" data-i18n="Experience now">Experience now</button>
+          <a href="genz-chengdu-playbook.html" class="btn btn-primary section-btn" style="margin-bottom:16px;min-width:150px;padding:12px 32px;font-size:16px;text-decoration:none;text-align:center;display:block;" data-i18n="Experience now">Experience now</a>
           <div style="text-align:center;">
-            <div style="font-size:20px;font-weight:600;color:#38441b;margin:0 0 8px 0;" data-i18n="Imperial Banquet (Lunch)">Imperial Banquet (Lunch)</div>
-            <div style="font-size:16px;color:#708238;text-align:center;" data-i18n="Enjoy exquisite Sichuan cuisine and cultural show">Enjoy exquisite Sichuan cuisine and cultural show</div>
+            <div style="font-size:20px;font-weight:600;color:#38441b;margin:0 0 8px 0;" data-i18n="Gen-Z Chengdu Playbook: 12hrs of Vibes">Gen-Z Chengdu Playbook: 12hrs of Vibes</div>
+            <div style="font-size:16px;color:#708238;text-align:center;" data-i18n="Private ride, Hotpot, Massage,Buffet,Top bar,Night Culture. One day to live your best Chengdu life.">Private ride, Hotpot, Massage,Buffet,Top bar,Night Culture. One day to live your best Chengdu life.</div>
           </div>
         </div>
-        <div class="product-card" style="width:100%;max-width:600px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(112,130,56,0.10);padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;">
-          <img src="images/文化一日.jpg" style="width:100%;height:250px;object-fit:cover;border-radius:8px;margin-bottom:16px;">
-          <button class="btn btn-outline section-btn" style="margin-bottom:16px;min-width:150px;padding:12px 32px;font-size:16px;" data-i18n="Experience now">Experience now</button>
-          <div style="text-align:center;">
-            <div style="font-size:20px;font-weight:600;color:#38441b;margin:0 0 8px 0;" data-i18n="Sichuan Opera (Afternoon)">Sichuan Opera (Afternoon)</div>
-            <div style="font-size:16px;color:#708238;text-align:center;" data-i18n="Face-changing, fire-spitting, and more">Face-changing, fire-spitting, and more</div>
-          </div>
-        </div>
-      </div>
-      <div style="text-align:center;margin-top:24px;">
-        <a href="experience.html" class="btn btn-primary" style="font-size:18px;padding:12px 48px;">Experience now</a>
       </div>
     </section>
     <!-- 7. 底部栏保留 -->
     <div style="width:100%;background:#38441b;color:white;text-align:center;padding:18px 0;font-size:15px;letter-spacing:1px;margin-top:60px;">
-      <span style="display:inline-block;vertical-align:middle;">Herenative &copy; 2025 | 联系我们  微信小程序     抖音号     APP下载</span>
+      <span style="display:inline-block;vertical-align:middle;">Herenative &copy; 2025</span>
+      <span style="display:inline-block;vertical-align:middle;margin-left:12px;">WhatsApp us at +7419737390</span>
     </div>
     <!-- 8. 脚本升级：轮播图、弹窗、语言切换 -->
     <script>
@@ -970,6 +963,10 @@ const translations = {
         "体验地道本地生活，深入城市日常，适合时间有限的你": "Experience authentic local life, dive into city routines, perfect for those with limited time.",
         "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好者": "Explore culture and nature in depth, gain richer travel memories, perfect for enthusiasts.",
         "Login/Sign Up": "Login/Sign Up",
+        "Chengdu All-Day Packed": "Chengdu All-Day Packed",
+        "Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise": "Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise",
+        "GEN-Z CHENGDU PLAYBOOK: 24HRS OF VIBES": "Gen-Z Chengdu Playbook: 12hrs of Vibes",
+        "Private ride, Hotpot, Massage,Buffet,Top bar,Night Culture. One day to live your best Chengdu life.": "Private ride, Hotpot, Massage,Buffet,Top bar,Night Culture. One day to live your best Chengdu life.",
         // ...继续补全页面所有中文内?..
     },
     ja: {
@@ -1105,19 +1102,19 @@ const translations = {
         "邮箱": "อีเมล",
         "密码": "รหัสผ่าน",
         "手机号码": "เบอร์โทรศัพท์มือถือ",
-        "请设置密码": "กรุณาตั้งรหัสผ่า�?",
+        "请设置密码": "กรุณาตั้งรหัสผ่าน",
         "请再次输入密码": "กรุณาใส่รหัสผ่านอีกครั้ง",
         "请输入邮箱": "กรุณาใส่อีเมล",
         "请输入密码": "กรุณาใส่รหัสผ่าน",
-        "请输入手机号?: "กรุณาใส่เบอร์โทรศัพท์มือถือ",
+        "请输入手机号码": "กรุณาใส่เบอร์โทรศัพท์มือถือ",
         "Join now": "เข้าร่วมทันที",
-        "Experience now": "สัมผัสประสบการณ์ทันท�?",
-        "Panda (Morning)": "แพนด้า (เช้?",
-        "Visit Chengdu Panda Base and meet adorable pandas": "เยี่ยมชมฐานแพนด้าเฉิงต?พบกับแพนด้าน่ารั?,
-        "Imperial Banquet (Lunch)": "งานเลี้ยงจักรพรรดิ (กลางวั?",
+        "Experience now": "สัมผัสประสบการณ์ทันที",
+        "Panda (Morning)": "แพนด้า (เช้า)",
+        "Visit Chengdu Panda Base and meet adorable pandas": "เยี่ยมชมฐานแพนด้าเฉิงตู พบกับแพนด้าน่ารัก",
+        "Imperial Banquet (Lunch)": "งานเลี้ยงจักรพรรดิ (กลางวัน)",
         "Enjoy exquisite Sichuan cuisine and cultural show": "เพลิดเพลินกับอาหารเสฉวนและการแสดงวัฒนธรรม",
         "Sichuan Opera (Afternoon)": "งิ้วเสฉวน (บ่าย)",
-        "Face-changing, fire-spitting, and more": "การเปลี่ยนหน้ากา?พ่นไ?และอื่นๆ",
+        "Face-changing, fire-spitting, and more": "การเปลี่ยนหน้ากาก พ่นไฟ และอื่นๆ",
         "Night River Cruise": "ล่องเรือยามค่ำคืน",
         "Boat on Jinjiang and enjoy the night view": "ล่องเรือแม่น้ำจินเจียง ชมวิวกลางคืน",
         "City Service": "Day Local",
@@ -1126,9 +1123,9 @@ const translations = {
         "The cultural performances and exquisite Sichuan cuisine of each dynasty in Chengdu": "การแสดงวัฒนธรรมและอาหารเสฉวนของแต่ละราชวงศ์ในเฉิงตู",
         "Panda Feeding (Chengdu Base)": "ให้อาหารแพนด้า (ฐานเฉิงตู)",
         "Get close to adorable pandas and experience their daily life at Chengdu Panda Base": "ใกล้ชิดแพนด้าน่ารักและสัมผัสชีวิตประจำวันของพวกเขาที่ฐานแพนด้าเฉิงตู",
-        "Boat on Jinjiang at night and enjoy Chengdu's unique night view": "ล่องเรือแม่น้ำจินเจียงยามค่ำคื?ชมวิวเฉิงตู",
+        "Boat on Jinjiang at night and enjoy Chengdu's unique night view": "ล่องเรือแม่น้ำจินเจียงยามค่ำคืน ชมวิวเฉิงตู",
         "Sichuan Opera": "งิ้วเสฉวน",
-        "Marvel at the magical face-changing and fire-spitting performances": "ตื่นตาตื่นใจกับการเปลี่ยนหน้ากากและพ่นไ?
+        "Marvel at the magical face-changing and fire-spitting performances": "ตื่นตาตื่นใจกับการเปลี่ยนหน้ากากและพ่นไฟ"
     },
     ms: {
         "Login/Sign Up": "Log Masuk/Daftar",
@@ -1208,10 +1205,13 @@ function setLang(lang) {
 function applyTranslation(lang) {
     const dict = translations[lang];
     if (!dict) return;
-    // 优先翻译所有带data-i18n的元�?    document.querySelectorAll('[data-i18n]').forEach(el => {
+    
+    // 优先翻译所有带data-i18n的元素
+    document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (dict[key]) el.textContent = dict[key];
     });
+    
     // 兼容原有方式
     document.querySelectorAll('*').forEach(el => {
         if (el.offsetParent === null && el.tagName !== 'BODY') return;

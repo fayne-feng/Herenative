@@ -20,7 +20,7 @@
 
 ## 页面结构
 
-- `daylocal.html` - 主页
+- `herenative.html` - 主页
 - `experience.html` - 体验页面
 - `panda-detail.html` - 熊猫详情页
 - `register.html` - 注册页面
@@ -37,4 +37,4 @@
 
 ## 本地运行
 
-直接在浏览器中打开 `daylocal.html` 即可查看网站。 
+直接在浏览器中打开 `herenative.html` 即可查看网站。 

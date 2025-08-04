@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chengdu All-Day Packed - HereNative</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #708238;
+            --primary-dark: #55612b;
+            --secondary: #bfc7b1;
+            --light: #f5f6f4;
+            --dark: #222222;
+            --gray: #8a8f8a;
+            --border: #e0e2dd;
+        }
+
+        body {
+            font-family: 'Poppins', 'Noto Sans SC', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: var(--light);
+            background: linear-gradient(rgba(112, 130, 56, 0.4), rgba(112, 130, 56, 0.4)), url('https://images.unsplash.com/photo-1542662565-7e4b66bae529?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* 头部导航 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(112, 130, 56, 0.08);
+            z-index: 1000;
+            padding: 11.5px 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 48px;
+            margin-right: 48px;
+        }
+
+        .nav-links span {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s;
+            cursor: default;
+        }
+
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            margin-right: 16px;
+        }
+
+        .btn-outline:hover {
+            background: var(--secondary);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        /* 产品详情页样式 */
+        .product-detail {
+            padding-top: 100px;
+            background: white;
+            margin: 20px auto;
+            max-width: 1200px;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(112, 130, 56, 0.13);
+            overflow: hidden;
+        }
+
+        .product-header {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .product-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-title-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 40px 30px 30px;
+        }
+
+        .product-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .product-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .product-content {
+            padding: 40px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+
+        .product-info {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        .info-section {
+            margin-bottom: 30px;
+        }
+
+        .info-section h3 {
+            color: var(--primary-dark);
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-section h3 i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+
+        .info-list li i {
+            color: var(--primary);
+            margin-right: 10px;
+            width: 16px;
+        }
+
+        .booking-card {
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 30px;
+            position: sticky;
+            top: 120px;
+        }
+
+        .price {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .price small {
+            font-size: 16px;
+            color: var(--gray);
+        }
+
+        .booking-btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .cancellation-policy {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .cancellation-policy h4 {
+            color: #856404;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .cancellation-policy p {
+            color: #856404;
+            font-size: 12px;
+            margin: 0;
+        }
+
+        .operator-info {
+            border-top: 1px solid #e9ecef;
+            padding-top: 20px;
+        }
+
+        .operator-info h4 {
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .operator-badges {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .badge {
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .itinerary {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .itinerary h3 {
+            color: var(--primary-dark);
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .timeline {
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 25px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            background: var(--primary);
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+
+        .timeline-time {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .timeline-desc {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        /* 页脚 */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 80px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #e0e2dd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #bfc7b1;
+            color: #e0e2dd;
+            font-size: 14px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .nav-buttons {
+                position: relative;
+            }
+            
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .product-content {
+                padding: 20px;
+            }
+            
+            .product-title {
+                font-size: 28px;
+            }
+            
+            .booking-card {
+                position: static;
+                margin-top: 20px;
+            }
+            
+            .product-detail {
+                margin: 80px auto 20px;
+            }
+        }
+
+        .btn-translate {
+            min-width: 80px;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            margin-left: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+
+        .btn-translate:hover {
+            background: var(--secondary);
+        }
+
+        .btn-translate i {
+            color: var(--primary);
+        }
+
+        .btn-translate span {
+            color: var(--primary);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        #translate-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 48px;
+            background: #fff;
+            border: 1px solid #e0e2dd;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(112,130,56,0.15);
+            z-index: 10000;
+            min-width: 140px;
+        }
+
+        .translate-option {
+            padding: 12px 24px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+
+        .translate-option:hover {
+            background: #f8f9fa;
+        }
+
+        .translate-option:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="herenative.html" class="logo">
+                    <img src="images/商标.png" alt="商标" style="height:32px;width:32px;margin-right:8px;vertical-align:middle;">
+                    HereNative
+                </a>
+                <ul class="nav-links">
+                    <li>
+                        <span id="city-select-btn">成都游玩</span>
+                    </li>
+                    <li><span>本地一日</span></li>
+                    <li><span>深度体验</span></li>
+                </ul>
+                <div class="nav-buttons">
+                    <button class="btn btn-outline btn-translate" id="translate-btn">
+                        <i class="fas fa-globe"></i>
+                        <span>EN</span>
+                    </button>
+                    <div id="translate-menu">
+                        <div class="translate-option" data-lang="en">English</div>
+                        <div class="translate-option" data-lang="zh">中文</div>
+                        <div class="translate-option" data-lang="ko">한국어</div>
+                        <div class="translate-option" data-lang="ja">日本語</div>
+                        <div class="translate-option" data-lang="th">ไทย</div>
+                        <div class="translate-option" data-lang="ms">Bahasa Melayu</div>
+                        <div class="translate-option" data-lang="vi">Tiếng Việt</div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 产品详情页 -->
+    <div class="product-detail">
+        <!-- 产品头部图片 -->
+        <div class="product-header">
+            <img src="images/熊猫1.png" alt="Chengdu All-Day Packed">
+            <div class="product-title-overlay">
+                <h1 class="product-title" data-i18n="Chengdu All-Day Packed">Chengdu All-Day Packed</h1>
+                <p class="product-subtitle" data-i18n="Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise">Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise</p>
+            </div>
+        </div>
+
+        <div class="product-content">
+            <div class="product-grid">
+                <!-- 左侧产品信息 -->
+                <div class="product-info">
+                    <!-- 概述 -->
+                    <div class="info-section">
+                        <h3><i class="fas fa-star"></i> 概述（Overview）</h3>
+                        <ul class="info-list">
+                            <li><i class="fas fa-clock"></i> 时长：13 hours（8:30 AM – 9:30 PM）</li>
+                            <li><i class="fas fa-users"></i> 成团：Private Tour（2-6 people，全程专属车辆）</li>
+                            <li><i class="fas fa-language"></i> 语言：English-speaking guide（全程英文讲解）</li>
+                            <li><i class="fas fa-child"></i> 年龄：All ages（家庭友好，可定制儿童餐）</li>
+                        </ul>
+                    </div>
+
+                    <!-- 行程安排 -->
+                    <div class="itinerary">
+                        <h3><i class="fas fa-route"></i> 行程安排</h3>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-time">8:30 AM</div>
+                                <div class="timeline-title">专车接送</div>
+                                <div class="timeline-desc">从酒店或指定地点出发</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">9:00 - 12:00 AM</div>
+                                <div class="timeline-title">Panda Early Access</div>
+                                <div class="timeline-desc">独享熊猫晨活动，避开人流</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">12:30 - 14:00 PM</div>
+                                <div class="timeline-title">Sichuan Hotpot with Spice Levels (Lunch Included)</div>
+                                <div class="timeline-desc">火锅可选微辣/不辣，英文菜单，刺激味蕾的无与伦比冰甜品</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">14:00 - 15:30 PM</div>
+                                <div class="timeline-title">Wenshu Temple & Pastries</div>
+                                <div class="timeline-desc">文殊院参观，历史悠久，成都最著名的一个景点，品尝传统点心</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">16:00 - 17:40 PM</div>
+                                <div class="timeline-title">Sichuan Face-Changing Opera</div>
+                                <div class="timeline-desc">蜀风雅韵三品坐，近观变脸，Ten different performances + tea tasting</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">17:30 - 19:00 PM</div>
+                                <div class="timeline-title">Fuqin Night Market Food tour</div>
+                                <div class="timeline-desc">抚琴夜市私藏小吃推荐，上百种小吃探索之旅</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">19:00 - 21:30 PM</div>
+                                <div class="timeline-title">Jinjiang Night Cruise</div>
+                                <div class="timeline-desc">锦江夜游，赏安顺廊桥灯光秀，含送回服务</div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">21:30 PM - 深夜</div>
+                                <div class="timeline-title">兰桂坊酒吧推荐（自主选择）</div>
+                                <div class="timeline-desc">行程结束后，可选择前往兰桂坊体验成都夜生活</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 预订政策 -->
+                    <div class="info-section">
+                        <h3><i class="fas fa-calendar-alt"></i> 预订政策（Booking Policies）</h3>
+                        <ul class="info-list">
+                            <li><i class="fas fa-times-circle"></i> 取消规则：提前 24 小时免费取消（Full refund if canceled ≥24h before）</li>
+                            <li><i class="fas fa-exclamation-triangle"></i> 24 小时内取消收取 25% 费用（50% fee for last-one-hour cancellation）</li>
+                            <li><i class="fas fa-credit-card"></i> 支付方式：Visa/Mastercard/PayPal/Wechat/ALI Pay</li>
+                        </ul>
+                    </div>
+
+                    <!-- 运营商信息 -->
+                    <div class="info-section">
+                        <h3><i class="fas fa-building"></i> 运营商信息</h3>
+                        <p style="margin-bottom: 15px;"><strong>运营商：</strong>HereNative Chengdu Company</p>
+                        
+                        <h4 style="color: var(--primary-dark); margin-bottom: 10px;">资质认证：</h4>
+                        <ul class="info-list">
+                            <li><i class="fas fa-check-circle"></i> 成都市文旅局认证服务商</li>
+                            <li><i class="fas fa-award"></i> Tripadvisor 2025 Travelers'Choice（旅行者之选）</li>
+                        </ul>
+
+                        <h4 style="color: var(--primary-dark); margin-bottom: 10px;">导游团队：</h4>
+                        <ul class="info-list">
+                            <li><i class="fas fa-graduation-cap"></i> 英语专业八级，持证导游</li>
+                            <li><i class="fas fa-globe"></i> 团队人员都曾留学海外（UK/US/AU），熟悉西方文化偏好</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 右侧预订卡片 -->
+                <div class="booking-card">
+                    <div class="price">
+                        ¥1,280 <small>per person</small>
+                    </div>
+                    
+                    <button class="btn btn-primary booking-btn" onclick="bookNow()">
+                        <i class="fas fa-calendar-plus"></i> Book Now
+                    </button>
+                    
+                    <div class="cancellation-policy">
+                        <h4><i class="fas fa-shield-alt"></i> Free Cancellation</h4>
+                        <p>Cancel up to 24 hours in advance for a full refund</p>
+                    </div>
+                    
+                    <div class="operator-info">
+                        <h4>Operated by HereNative</h4>
+                        <div class="operator-badges">
+                            <span class="badge">Certified</span>
+                            <span class="badge">English Guide</span>
+                        </div>
+                        <p style="font-size: 14px; color: var(--gray);">
+                            Professional English-speaking guides with overseas experience
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <span>Herenative &copy; 2025</span>
+                <span style="margin-left:12px;">WhatsApp us at +7419737390</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 语言包
+        const translations = {
+            en: {
+                "Chengdu All-Day Packed": "Chengdu All-Day Packed",
+                "Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise": "Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise",
+                "概述（Overview）": "Overview",
+                "时长：13 hours（8:30 AM – 9:30 PM）": "Duration: 13 hours (8:30 AM – 9:30 PM)",
+                "成团：Private Tour（2-6 people，全程专属车辆）": "Group: Private Tour (2-6 people, exclusive vehicle)",
+                "语言：English-speaking guide（全程英文讲解）": "Language: English-speaking guide (full English commentary)",
+                "年龄：All ages（家庭友好，可定制儿童餐）": "Age: All ages (family-friendly, customizable children's meals)",
+                "行程安排": "Itinerary",
+                "预订政策（Booking Policies）": "Booking Policies",
+                "运营商信息": "Operator Information",
+                "Book Now": "Book Now",
+                "Free Cancellation": "Free Cancellation",
+                "Cancel up to 24 hours in advance for a full refund": "Cancel up to 24 hours in advance for a full refund",
+                "Operated by HereNative": "Operated by HereNative",
+                "Professional English-speaking guides with overseas experience": "Professional English-speaking guides with overseas experience"
+            },
+            zh: {
+                "Chengdu All-Day Packed": "成都全日游套餐",
+                "Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise": "熊猫、寺庙、火锅、川剧、夜市与夜游",
+                "概述（Overview）": "概述",
+                "时长：13 hours（8:30 AM – 9:30 PM）": "时长：13小时（8:30 AM – 9:30 PM）",
+                "成团：Private Tour（2-6 people，全程专属车辆）": "成团：私人团（2-6人，全程专属车辆）",
+                "语言：English-speaking guide（全程英文讲解）": "语言：英语导游（全程英文讲解）",
+                "年龄：All ages（家庭友好，可定制儿童餐）": "年龄：全年龄段（家庭友好，可定制儿童餐）",
+                "行程安排": "行程安排",
+                "预订政策（Booking Policies）": "预订政策",
+                "运营商信息": "运营商信息",
+                "Book Now": "立即预订",
+                "Free Cancellation": "免费取消",
+                "Cancel up to 24 hours in advance for a full refund": "提前24小时取消可获得全额退款",
+                "Operated by HereNative": "由HereNative运营",
+                "Professional English-speaking guides with overseas experience": "具有海外经验的专业英语导游"
+            },
+            ko: {
+                "Chengdu All-Day Packed": "청두 올데이 패키지",
+                "Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise": "판다, 사원, 훠궈, 쓰촨 오페라, 야시장 & 야간 크루즈",
+                "概述（Overview）": "개요",
+                "时长：13 hours（8:30 AM – 9:30 PM）": "소요시간: 13시간 (오전 8:30 – 오후 9:30)",
+                "成团：Private Tour（2-6 people，全程专属车辆）": "그룹: 프라이빗 투어 (2-6명, 전용 차량)",
+                "语言：English-speaking guide（全程英文讲解）": "언어: 영어 가이드 (전체 영어 해설)",
+                "年龄：All ages（家庭友好，可定制儿童餐）": "연령: 전 연령 (가족 친화적, 어린이 식사 맞춤 가능)",
+                "行程安排": "일정",
+                "预订政策（Booking Policies）": "예약 정책",
+                "运营商信息": "운영사 정보",
+                "Book Now": "지금 예약하기",
+                "Free Cancellation": "무료 취소",
+                "Cancel up to 24 hours in advance for a full refund": "24시간 전까지 취소 시 전액 환불",
+                "Operated by HereNative": "HereNative에서 운영",
+                "Professional English-speaking guides with overseas experience": "해외 경험이 있는 전문 영어 가이드"
+            },
+            ja: {
+                "Chengdu All-Day Packed": "成都オールデイパック",
+                "Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise": "パンダ、寺院、火鍋、川劇、夜市＆ナイトクルーズ",
+                "概述（Overview）": "概要",
+                "时长：13 hours（8:30 AM – 9:30 PM）": "所要時間: 13時間 (午前8:30 – 午後9:30)",
+                "成团：Private Tour（2-6 people，全程专属车辆）": "グループ: プライベートツアー (2-6名、専用車両)",
+                "语言：English-speaking guide（全程英文讲解）": "言語: 英語ガイド (全行程英語解説)",
+                "年龄：All ages（家庭友好，可定制儿童餐）": "年齢: 全年齢 (ファミリーフレンドリー、子供向け食事カスタマイズ可能)",
+                "行程安排": "スケジュール",
+                "预订政策（Booking Policies）": "予約ポリシー",
+                "运营商信息": "運営会社情報",
+                "Book Now": "今すぐ予約",
+                "Free Cancellation": "無料キャンセル",
+                "Cancel up to 24 hours in advance for a full refund": "24時間前までキャンセルで全額返金",
+                "Operated by HereNative": "HereNativeが運営",
+                "Professional English-speaking guides with overseas experience": "海外経験のある専門英語ガイド"
+            },
+            th: {
+                "Chengdu All-Day Packed": "เฉิงตู ออลเดย์ แพ็ค",
+                "Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise": "แพนด้า วัด หม้อไฟ โอเปร่าซื่อชวน ตลาดกลางคืน & ล่องเรือกลางคืน",
+                "概述（Overview）": "ภาพรวม",
+                "时长：13 hours（8:30 AM – 9:30 PM）": "ระยะเวลา: 13 ชั่วโมง (8:30 น. - 21:30 น.)",
+                "成团：Private Tour（2-6 people，全程专属车辆）": "กลุ่ม: ทัวร์ส่วนตัว (2-6 คน รถส่วนตัว)",
+                "语言：English-speaking guide（全程英文讲解）": "ภาษา: ไกด์ภาษาอังกฤษ (บรรยายภาษาอังกฤษตลอดการเดินทาง)",
+                "年龄：All ages（家庭友好，可定制儿童餐）": "อายุ: ทุกวัย (เหมาะสำหรับครอบครัว ปรับแต่งอาหารเด็กได้)",
+                "行程安排": "กำหนดการ",
+                "预订政策（Booking Policies）": "นโยบายการจอง",
+                "运营商信息": "ข้อมูลผู้ให้บริการ",
+                "Book Now": "จองเลย",
+                "Free Cancellation": "ยกเลิกฟรี",
+                "Cancel up to 24 hours in advance for a full refund": "ยกเลิกล่วงหน้า 24 ชั่วโมงเพื่อรับเงินคืนเต็มจำนวน",
+                "Operated by HereNative": "ดำเนินการโดย HereNative",
+                "Professional English-speaking guides with overseas experience": "ไกด์ภาษาอังกฤษมืออาชีพที่มีประสบการณ์ต่างประเทศ"
+            },
+            ms: {
+                "Chengdu All-Day Packed": "Pakej Chengdu Sepanjang Hari",
+                "Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise": "Panda, Kuil, Hot pot, Opera Sichuan, Pasar Malam & Pelayaran Malam",
+                "概述（Overview）": "Gambaran Keseluruhan",
+                "时长：13 hours（8:30 AM – 9:30 PM）": "Tempoh: 13 jam (8:30 pagi – 9:30 malam)",
+                "成团：Private Tour（2-6 people，全程专属车辆）": "Kumpulan: Lawatan Persendirian (2-6 orang, kenderaan eksklusif)",
+                "语言：English-speaking guide（全程英文讲解）": "Bahasa: Pemandu berbahasa Inggeris (ulasan penuh dalam bahasa Inggeris)",
+                "年龄：All ages（家庭友好，可定制儿童餐）": "Umur: Semua peringkat umur (mesra keluarga, makanan kanak-kanak boleh disesuaikan)",
+                "行程安排": "Jadual Perjalanan",
+                "预订政策（Booking Policies）": "Dasar Tempahan",
+                "运营商信息": "Maklumat Pengendali",
+                "Book Now": "Tempah Sekarang",
+                "Free Cancellation": "Pembatalan Percuma",
+                "Cancel up to 24 hours in advance for a full refund": "Batal sehingga 24 jam lebih awal untuk bayaran balik penuh",
+                "Operated by HereNative": "Dikendalikan oleh HereNative",
+                "Professional English-speaking guides with overseas experience": "Pemandu berbahasa Inggeris profesional dengan pengalaman luar negara"
+            },
+            vi: {
+                "Chengdu All-Day Packed": "Gói Chengdu Cả Ngày",
+                "Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise": "Gấu trúc, Đền chùa, Lẩu, Kịch Tứ Xuyên, Chợ đêm & Du thuyền đêm",
+                "概述（Overview）": "Tổng quan",
+                "时长：13 hours（8:30 AM – 9:30 PM）": "Thời gian: 13 giờ (8:30 sáng – 9:30 tối)",
+                "成团：Private Tour（2-6 people，全程专属车辆）": "Nhóm: Tour riêng (2-6 người, xe riêng)",
+                "语言：English-speaking guide（全程英文讲解）": "Ngôn ngữ: Hướng dẫn viên nói tiếng Anh (thuyết minh toàn bộ bằng tiếng Anh)",
+                "年龄：All ages（家庭友好，可定制儿童餐）": "Độ tuổi: Mọi lứa tuổi (thân thiện gia đình, có thể tùy chỉnh bữa ăn trẻ em)",
+                "行程安排": "Lịch trình",
+                "预订政策（Booking Policies）": "Chính sách đặt chỗ",
+                "运营商信息": "Thông tin nhà điều hành",
+                "Book Now": "Đặt ngay",
+                "Free Cancellation": "Hủy miễn phí",
+                "Cancel up to 24 hours in advance for a full refund": "Hủy trước 24 giờ để được hoàn tiền đầy đủ",
+                "Operated by HereNative": "Được điều hành bởi HereNative",
+                "Professional English-speaking guides with overseas experience": "Hướng dẫn viên tiếng Anh chuyên nghiệp với kinh nghiệm nước ngoài"
+            }
+        };
+
+        function setLang(lang) {
+            localStorage.setItem('lang', lang);
+            applyTranslation(lang);
+            if (lang === 'en') {
+                document.body.classList.add('lang-en');
+            } else {
+                document.body.classList.remove('lang-en');
+            }
+        }
+
+        function applyTranslation(lang) {
+            const dict = translations[lang];
+            if (!dict) return;
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) el.textContent = dict[key];
+            });
+        }
+
+        function bookNow() {
+            window.location.href = 'book+pay.html?price=1280';
+        }
+
+        // 翻译按钮功能
+        document.getElementById('translate-btn').onclick = function(e) {
+            e.stopPropagation();
+            const menu = document.getElementById('translate-menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        };
+
+        document.querySelectorAll('.translate-option').forEach(opt => {
+            opt.onclick = function() {
+                const lang = this.dataset.lang;
+                localStorage.setItem('lang', lang);
+                document.getElementById('translate-menu').style.display = 'none';
+                // 这里可以添加翻译逻辑
+            };
+        });
+
+        document.body.addEventListener('click', function() {
+            document.getElementById('translate-menu').style.display = 'none';
+        });
+
+        // 页面加载时应用语言设置
+        window.addEventListener('DOMContentLoaded', function() {
+            const lang = localStorage.getItem('lang');
+            if (lang) {
+                applyTranslation(lang);
+                if (lang === 'en') {
+                    document.body.classList.add('lang-en');
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

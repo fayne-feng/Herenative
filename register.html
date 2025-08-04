@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="HereNative - 注册账号">HereNative - 注册账号</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #708238; /* 橄榄绿 */
+            --primary-dark: #55612b; /* 深橄榄绿 */
+            --secondary: #bfc7b1; /* 浅灰带绿 */
+            --light: #f5f6f4; /* 浅灰/白 */
+            --dark: #222222;
+            --gray: #8a8f8a; /* 中性灰 */
+            --border: #e0e2dd; /* 浅灰边框 */
+        }
+
+        body {
+            font-family: 'Poppins', 'Noto Sans SC', sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: var(--light);
+            background: linear-gradient(rgba(112, 130, 56, 0.4), rgba(112, 130, 56, 0.4)), url('https://images.unsplash.com/photo-1542662565-7e4b66bae529?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* 头部导航 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(112, 130, 56, 0.08);
+            z-index: 1000;
+            padding: 11.5px 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 48px;
+            margin-right: 48px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-outline {
+            border: 1px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            margin-right: 16px;
+        }
+
+        .btn-outline:hover {
+            background: var(--secondary);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        /* 注册表单样式 */
+        .register-section {
+            padding-top: 120px;
+            padding-bottom: 60px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .register-container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(112, 130, 56, 0.13);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .register-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .register-subtitle {
+            color: var(--gray);
+            font-size: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            background: var(--light);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .register-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 8px;
+        }
+
+        .register-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 24px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* 城市选择卡片样式 */
+        .city-select-wrapper {
+            position: relative;
+        }
+
+        .city-card {
+            display: none;
+            position: absolute;
+            top: 36px;
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 140px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(112,130,56,0.13);
+            border: 1px solid #e0e2dd;
+            z-index: 2000;
+            padding: 16px 0 8px 0;
+            text-align: center;
+        }
+
+        .city-card-title {
+            text-align: center;
+            font-size: 15px;
+            color: var(--primary-dark);
+            font-weight: 600;
+            padding: 0 20px 8px 20px;
+        }
+
+        .city-card-option {
+            text-align: center;
+            font-size: 15px;
+            color: var(--dark);
+            padding: 8px 20px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .city-card-option:hover {
+            background: var(--secondary);
+        }
+
+        .btn-translate {
+            min-width: 80px;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 14px;
+            margin-left: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+
+        .btn-translate:hover {
+            background: var(--secondary);
+        }
+
+        #translate-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 48px;
+            background: #fff;
+            border: 1px solid #e0e2dd;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(112,130,56,0.15);
+            z-index: 10000;
+            min-width: 140px;
+        }
+
+        .translate-option {
+            padding: 12px 24px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+
+        .translate-option:hover {
+            background: #f8f9fa;
+        }
+
+        .translate-option:last-child {
+            border-bottom: none;
+        }
+
+        /* 底部栏 */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: auto;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #bfc7b1;
+            color: #e0e2dd;
+            font-size: 14px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .nav-buttons {
+                position: relative;
+            }
+            
+            .register-container {
+                margin: 20px;
+                padding: 30px 20px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .register-section {
+                padding-top: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航栏 -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="herenative.html" class="logo">
+                    <img src="images/商标.png" alt="商标" style="height:32px;width:32px;margin-right:8px;vertical-align:middle;">
+                    HereNative
+                </a>
+                <ul class="nav-links">
+                    <li>
+                        <span id="city-select-btn">成都游玩</span>
+                    </li>
+                    <li><span>本地一日</span></li>
+                    <li><span>深度体验</span></li>
+                </ul>
+                <div class="nav-buttons">
+                    <button class="btn btn-outline btn-translate" id="translate-btn">
+                        <i class="fas fa-globe"></i>
+                        <span>EN</span>
+                    </button>
+                    <div id="translate-menu">
+                        <div class="translate-option" data-lang="en">English</div>
+                        <div class="translate-option" data-lang="zh">中文</div>
+                        <div class="translate-option" data-lang="ko">한국어</div>
+                        <div class="translate-option" data-lang="ja">日本語</div>
+                        <div class="translate-option" data-lang="th">ไทย</div>
+                        <div class="translate-option" data-lang="ms">Bahasa Melayu</div>
+                        <div class="translate-option" data-lang="vi">Tiếng Việt</div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 注册表单 -->
+    <section class="register-section">
+        <div class="register-container">
+            <div class="register-header">
+                <h1 class="register-title" data-i18n="创建账号">创建账号</h1>
+                <p class="register-subtitle" data-i18n="加入HereNative，开启您的本地体验之旅">加入HereNative，开启您的本地体验之旅</p>
+            </div>
+            <form id="registerForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="姓">姓</label>
+                        <input type="text" class="form-input" data-i18n-placeholder="请输入您的姓" placeholder="请输入您的姓" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="名">名</label>
+                        <input type="text" class="form-input" data-i18n-placeholder="请输入您的名" placeholder="请输入您的名" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="邮箱地址">邮箱地址</label>
+                    <input type="email" class="form-input" data-i18n-placeholder="请输入您的邮箱地址" placeholder="请输入您的邮箱地址" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="手机号码">手机号码</label>
+                    <input type="tel" class="form-input" data-i18n-placeholder="请输入您的手机号码" placeholder="请输入您的手机号码" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="密码">密码</label>
+                    <input type="password" class="form-input" data-i18n-placeholder="请设置您的密码" placeholder="请设置您的密码" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" data-i18n="确认密码">确认密码</label>
+                    <input type="password" class="form-input" data-i18n-placeholder="请再次输入密码" placeholder="请再次输入密码" required>
+                </div>
+                <button type="submit" class="register-btn" data-i18n="立即注册">立即注册</button>
+            </form>
+            <div class="login-link">
+                <span data-i18n="已有账号？">已有账号？</span><a href="#" data-i18n="立即登录">立即登录</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <span>Herenative &copy; 2025</span>
+                <span style="margin-left:12px;">WhatsApp us at +7419737390</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // 城市选择卡片弹出与收回
+    window.addEventListener('DOMContentLoaded', function() {
+        var cityBtn = document.getElementById('city-select-btn');
+        var cityCard = document.getElementById('city-card');
+        cityBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            cityCard.style.display = cityCard.style.display === 'block' ? 'none' : 'block';
+        });
+        cityCard.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+        document.body.addEventListener('click', function() {
+            cityCard.style.display = 'none';
+        });
+    });
+
+    // 注册表单提交
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert(getTranslation('注册成功！欢迎加入HereNative！'));
+        window.location.href = 'herenative.html';
+    });
+
+    // 语言包
+    const translations = {
+        en: {
+            "HereNative - 注册账号": "HereNative - Register Account",
+            "创建账号": "Create Account",
+            "加入HereNative，开启您的本地体验之旅": "Join HereNative and start your local experience journey",
+            "用户名": "Username",
+            "邮箱": "Email",
+            "密码": "Password",
+            "确认密码": "Confirm Password",
+            "注册": "Register",
+            "已有账号？": "Already have an account?",
+            "登录": "Login",
+            "注册成功！欢迎加入HereNative！": "Registration successful! Welcome to HereNative!",
+            "HereNative &copy; 2025": "HereNative &copy; 2025"
+        },
+        zh: {
+            "HereNative - 注册账号": "HereNative - 注册账号",
+            "创建账号": "创建账号",
+            "加入HereNative，开启您的本地体验之旅": "加入HereNative，开启您的本地体验之旅",
+            "用户名": "用户名",
+            "邮箱": "邮箱",
+            "密码": "密码",
+            "确认密码": "确认密码",
+            "注册": "注册",
+            "已有账号？": "已有账号？",
+            "登录": "登录",
+            "注册成功！欢迎加入HereNative！": "注册成功！欢迎加入HereNative！",
+            "HereNative &copy; 2025": "HereNative &copy; 2025"
+        },
+        ko: {
+            "HereNative - 注册账号": "HereNative - 계정 등록",
+            "创建账号": "계정 만들기",
+            "加入HereNative，开启您的本地体验之旅": "HereNative에 가입하고 로컬 경험 여행을 시작하세요",
+            "用户名": "사용자 이름",
+            "邮箱": "이메일",
+            "密码": "비밀번호",
+            "确认密码": "비밀번호 확인",
+            "注册": "등록",
+            "已有账号？": "이미 계정이 있으신가요?",
+            "登录": "로그인",
+            "注册成功！欢迎加入HereNative！": "등록 성공! HereNative에 오신 것을 환영합니다!",
+            "HereNative &copy; 2025": "HereNative &copy; 2025"
+        },
+        ja: {
+            "HereNative - 注册账号": "HereNative - アカウント登録",
+            "创建账号": "アカウント作成",
+            "加入HereNative，开启您的本地体验之旅": "HereNativeに参加して、ローカル体験の旅を始めましょう",
+            "用户名": "ユーザー名",
+            "邮箱": "メールアドレス",
+            "密码": "パスワード",
+            "确认密码": "パスワード確認",
+            "注册": "登録",
+            "已有账号？": "すでにアカウントをお持ちですか？",
+            "登录": "ログイン",
+            "注册成功！欢迎加入HereNative！": "登録成功！HereNativeへようこそ！",
+            "HereNative &copy; 2025": "HereNative &copy; 2025"
+        },
+        th: {
+            "HereNative - 注册账号": "HereNative - ลงทะเบียนบัญชี",
+            "创建账号": "สร้างบัญชี",
+            "加入HereNative，开启您的本地体验之旅": "เข้าร่วม HereNative และเริ่มต้นการเดินทางประสบการณ์ท้องถิ่นของคุณ",
+            "用户名": "ชื่อผู้ใช้",
+            "邮箱": "อีเมล",
+            "密码": "รหัสผ่าน",
+            "确认密码": "ยืนยันรหัสผ่าน",
+            "注册": "ลงทะเบียน",
+            "已有账号？": "มีบัญชีอยู่แล้วหรือไม่?",
+            "登录": "เข้าสู่ระบบ",
+            "注册成功！欢迎加入HereNative！": "ลงทะเบียนสำเร็จ! ยินดีต้อนรับสู่ HereNative!",
+            "HereNative &copy; 2025": "HereNative &copy; 2025"
+        },
+        ms: {
+            "HereNative - 注册账号": "HereNative - Daftar Akaun",
+            "创建账号": "Cipta Akaun",
+            "加入HereNative，开启您的本地体验之旅": "Sertai HereNative dan mulakan perjalanan pengalaman tempatan anda",
+            "用户名": "Nama Pengguna",
+            "邮箱": "E-mel",
+            "密码": "Kata Laluan",
+            "确认密码": "Sahkan Kata Laluan",
+            "注册": "Daftar",
+            "已有账号？": "Sudah ada akaun?",
+            "登录": "Log Masuk",
+            "注册成功！欢迎加入HereNative！": "Pendaftaran berjaya! Selamat datang ke HereNative!",
+            "HereNative &copy; 2025": "HereNative &copy; 2025"
+        },
+        vi: {
+            "HereNative - 注册账号": "HereNative - Đăng ký tài khoản",
+            "创建账号": "Tạo tài khoản",
+            "加入HereNative，开启您的本地体验之旅": "Tham gia HereNative và bắt đầu hành trình trải nghiệm địa phương của bạn",
+            "用户名": "Tên người dùng",
+            "邮箱": "Email",
+            "密码": "Mật khẩu",
+            "确认密码": "Xác nhận mật khẩu",
+            "注册": "Đăng ký",
+            "已有账号？": "Đã có tài khoản?",
+            "登录": "Đăng nhập",
+            "注册成功！欢迎加入HereNative！": "Đăng ký thành công! Chào mừng đến với HereNative!",
+            "HereNative &copy; 2025": "HereNative &copy; 2025"
+        }
+    };
+
+    function getTranslation(key) {
+        const lang = localStorage.getItem('lang') || 'zh';
+        const dict = translations[lang];
+        return dict && dict[key] ? dict[key] : key;
+    }
+
+    function setLang(lang) {
+        localStorage.setItem('lang', lang);
+        applyTranslation(lang);
+    }
+
+    function applyTranslation(lang) {
+        const dict = translations[lang];
+        if (!dict) return;
+        
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (dict[key]) el.textContent = dict[key];
+        });
+        
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+            const key = el.getAttribute('data-i18n-placeholder');
+            if (dict[key]) el.placeholder = dict[key];
+        });
+        
+        // 更新页面标题
+        const title = document.querySelector('title[data-i18n]');
+        if (title && dict[title.getAttribute('data-i18n')]) {
+            document.title = dict[title.getAttribute('data-i18n')];
+        }
+    }
+
+    // 翻译按钮功能
+    document.getElementById('translate-btn').onclick = function(e) {
+        e.stopPropagation();
+        const menu = document.getElementById('translate-menu');
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+    };
+
+    document.querySelectorAll('.translate-option').forEach(opt => {
+        opt.onclick = function() {
+            setLang(this.dataset.lang);
+            document.getElementById('translate-menu').style.display = 'none';
+        };
+    });
+
+    document.body.addEventListener('click', function() {
+        document.getElementById('translate-menu').style.display = 'none';
+    });
+
+    // 页面加载时应用语言设置
+    window.addEventListener('DOMContentLoaded', function() {
+        const lang = localStorage.getItem('lang');
+        if (lang) {
+            applyTranslation(lang);
+        }
+    });
+    </script>
+</body>
+</html> 
