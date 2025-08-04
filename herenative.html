@@ -614,9 +614,9 @@
             bottom: 0;
             background: rgba(56,68,27,0.65);
             color: #fff;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
-            padding: 12px 0;
+            padding: 8px 0;
             text-align: center;
             border-radius: 0 0 18px 18px;
             letter-spacing: 1px;
@@ -628,9 +628,9 @@
             background: rgba(56,68,27,0.35);
             color: #fff;
             border: none;
-            font-size: 32px;
-            width: 48px;
-            height: 48px;
+            font-size: 28px;
+            width: 40px;
+            height: 40px;
             padding: 0;
             border-radius: 50%;
             display: flex;
@@ -646,10 +646,10 @@
             background: rgba(56,68,27,0.65);
         }
         .carousel-btn.prev {
-            left: 18px;
+            left: 12px;
         }
         .carousel-btn.next {
-            right: 18px;
+            right: 12px;
         }
         @media (max-width: 600px) {
             .activity-carousel {
@@ -664,8 +664,19 @@
                 height: 100%;
             }
             .carousel-caption {
-                font-size: 16px;
-                padding: 10px 0;
+                font-size: 14px;
+                padding: 6px 0;
+            }
+            .carousel-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 24px;
+            }
+            .carousel-btn.prev {
+                left: 8px;
+            }
+            .carousel-btn.next {
+                right: 8px;
             }
         }
         .carousel-section {
@@ -697,22 +708,6 @@
             margin-bottom: 0;
             margin-top: 2px;
             display: block;
-        }
-        .caption-btn {
-            position: absolute;
-            right: 24px;
-            bottom: 16px;
-            background: var(--primary);
-            color: #fff;
-            font-size: 13px;
-            border-radius: 8px;
-            padding: 4px 16px;
-            text-decoration: none;
-            font-weight: 400;
-            transition: background 0.2s;
-        }
-        .caption-btn:hover {
-            background: var(--primary-dark);
         }
         .city-select-wrapper {
             position: relative;
@@ -788,6 +783,51 @@
         .lang-en .caption-desc {
             letter-spacing: 0.01em !important;
         }
+        .carousel-caption.panda-caption {
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          min-height: 80px;
+          background: rgba(56,68,27,0.65);
+          color: #fff;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          z-index: 2;
+          box-sizing: border-box;
+          padding: 16px 0 32px 0;
+        }
+        .caption-center {
+          width: 100%;
+          text-align: center;
+          margin-bottom: 8px;
+        }
+        .panda-join-btn {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          bottom: 8px;
+          font-size: 11px;
+          padding: 4px 14px;
+          white-space: nowrap;
+          z-index: 3;
+        }
+        @media (max-width: 600px) {
+          .carousel-caption.panda-caption {
+            padding: 12px 0 28px 0;
+            min-height: 70px;
+          }
+          .caption-center {
+            margin-bottom: 6px;
+          }
+          .panda-join-btn {
+            bottom: 6px;
+            font-size: 10px;
+            padding: 3px 10px;
+          }
+        }
     </style>
 </head>
 <body>
@@ -836,24 +876,83 @@
         </div>
         <div class="carousel-track">
           <div class="carousel-item active">
+            <img src="images/川剧喷火.jpg" alt="Face-Changing & Fire-Breathing">
+            <div class="carousel-caption panda-caption">
+              <div class="caption-center">
+                <div class="caption-title">Face-Changing & Fire-Breathing</div>
+                <div class="caption-desc">Witness the Dazzling Art of Sichuan Opera's Fire Spitting!</div>
+              </div>
+              <a href="chengdu-all-day-packed.html" class="btn btn-primary panda-join-btn join-btn-unify">Join Now</a>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="images/夜游锦江.jpg" alt="Night Cruise on Jinjiang River">
+            <div class="carousel-caption panda-caption">
+              <div class="caption-center">
+                <div class="caption-title">Night Cruise on Jinjiang River</div>
+                <div class="caption-desc">Glide Through Chengdu's Glowing Nightscape!</div>
+              </div>
+              <a href="chengdu-all-day-packed.html" class="btn btn-primary panda-join-btn join-btn-unify">Join Now</a>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="images/成都夜市.jpg" alt="Fuqin Night Market">
+            <div class="carousel-caption panda-caption">
+              <div class="caption-center">
+                <div class="caption-title">Fuqin Night Market</div>
+                <div class="caption-desc">Chengdu's coolest night market!</div>
+              </div>
+              <a href="chengdu-all-day-packed.html" class="btn btn-primary panda-join-btn join-btn-unify">Join Now</a>
+            </div>
+          </div>
+          <div class="carousel-item">
             <img src="images/熊猫1.png" alt="Chengdu All-Day Packed">
-            <div class="carousel-caption">
-              <div class="caption-title">Chengdu All-Day Packed</div>
-              <div class="caption-desc">Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise</div>
+            <div class="carousel-caption panda-caption">
+              <div class="caption-center">
+                <div class="caption-title">Discover the Magic of Giant Pandas!</div>
+                <div class="caption-desc">Sichuan Panda Base – Where Wonders Come to Life!</div>
+              </div>
+              <a href="chengdu-all-day-packed.html" class="btn btn-primary panda-join-btn join-btn-unify">Join Now</a>
             </div>
           </div>
           <div class="carousel-item">
-            <img src="images/蜀宴赋.jpg" alt="Imperial Banquet">
-            <div class="carousel-caption">
-              <div class="caption-title">Imperial Banquet</div>
-              <div class="caption-desc">The cultural performances and exquisite Sichuan cuisine of each dynasty in Chengdu</div>
+            <img src="images/火锅.jpg" alt="Hotpot Heaven">
+            <div class="carousel-caption panda-caption">
+              <div class="caption-center">
+                <div class="caption-title">Hotpot Heaven</div>
+                <div class="caption-desc">Dive into Sichuan's Spicy Soul with a Sizzling Hotpot Experience!</div>
+              </div>
+              <a href="chengdu-all-day-packed.html" class="btn btn-primary panda-join-btn join-btn-unify">Join Now</a>
             </div>
           </div>
           <div class="carousel-item">
-            <img src="images/文化一日.jpg" alt="Sichuan Opera">
-            <div class="carousel-caption">
-              <div class="caption-title">Sichuan Opera</div>
-              <div class="caption-desc">Marvel at the magical face-changing and fire-spitting performances</div>
+            <img src="images/宽窄巷子.jpg" alt="Kuanzhai Alley">
+            <div class="carousel-caption panda-caption">
+              <div class="caption-center">
+                <div class="caption-title">Kuanzhai Alley</div>
+                <div class="caption-desc">Step into a Living Postcard of Sichuan's Past & Present!</div>
+              </div>
+              <a href="chengdu-all-day-packed.html" class="btn btn-primary panda-join-btn join-btn-unify">Join Now</a>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="images/太古里.jpg" alt="Taikoo Li Chengdu">
+            <div class="carousel-caption panda-caption">
+              <div class="caption-center">
+                <div class="caption-title">Taikoo Li Chengdu</div>
+                <div class="caption-desc">A Fashion-Forward Oasis in the Heart of Chengdu.</div>
+              </div>
+              <a href="genz-chengdu-playbook.html" class="btn btn-primary panda-join-btn join-btn-unify">Join Now</a>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="images/高空酒吧.jpg" alt="Sky-High Sips">
+            <div class="carousel-caption panda-caption">
+              <div class="caption-center">
+                <div class="caption-title">Sky-High Sips</div>
+                <div class="caption-desc">Chengdu's Best Rooftop Bars with a View!</div>
+              </div>
+              <a href="genz-chengdu-playbook.html" class="btn btn-primary panda-join-btn join-btn-unify">Join Now</a>
             </div>
           </div>
         </div>
@@ -874,7 +973,7 @@
           </div>
         </div>
         <div class="product-card" style="width:100%;max-width:600px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(112,130,56,0.10);padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;">
-          <img src="images/蜀宴赋.jpg" style="width:100%;height:250px;object-fit:cover;border-radius:8px;margin-bottom:16px;">
+          <img src="images/太古里.jpg" style="width:100%;height:250px;object-fit:cover;border-radius:8px;margin-bottom:16px;">
           <a href="genz-chengdu-playbook.html" class="btn btn-primary section-btn" style="margin-bottom:16px;min-width:150px;padding:12px 32px;font-size:16px;text-decoration:none;text-align:center;display:block;" data-i18n="Experience now">Experience now</a>
           <div style="text-align:center;">
             <div style="font-size:20px;font-weight:600;color:#38441b;margin:0 0 8px 0;" data-i18n="Gen-Z Chengdu Playbook: 12hrs of Vibes">Gen-Z Chengdu Playbook: 12hrs of Vibes</div>

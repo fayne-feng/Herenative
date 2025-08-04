@@ -139,12 +139,50 @@
             position: relative;
             height: 400px;
             overflow: hidden;
+            display: flex;
+            gap: 20px;
+            padding: 20px;
         }
 
-        .product-header img {
+        .product-header-left {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 120px;
+        }
+
+        .thumbnail {
+            width: 120px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .thumbnail:hover {
+            transform: scale(1.05);
+            border-color: var(--primary);
+        }
+
+        .thumbnail.active {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(112, 130, 56, 0.3);
+        }
+
+        .product-header-right {
+            flex: 1;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .main-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: opacity 0.3s ease;
         }
 
         .product-title-overlay {
@@ -445,7 +483,35 @@
             }
             
             .product-detail {
-                margin: 80px auto 20px;
+                margin: 40px auto 20px;
+            }
+
+            .product-header {
+                flex-direction: column;
+                height: auto;
+                padding: 8px;
+            }
+
+            .product-header-left {
+                flex-direction: row;
+                width: 100%;
+                gap: 8px;
+                margin-top: 8px;
+                justify-content: center;
+            }
+
+            .thumbnail {
+                width: 60px;
+                height: 40px;
+            }
+
+            .product-header-right {
+                height: 180px;
+                order: -1;
+            }
+
+            .product-content {
+                padding: 12px;
             }
         }
 
@@ -547,10 +613,19 @@
     <div class="product-detail">
         <!-- 产品头部图片 -->
         <div class="product-header">
-            <img src="images/熊猫1.png" alt="Chengdu All-Day Packed">
-            <div class="product-title-overlay">
-                <h1 class="product-title" data-i18n="Chengdu All-Day Packed">Chengdu All-Day Packed</h1>
-                <p class="product-subtitle" data-i18n="Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise">Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise</p>
+            <div class="product-header-left">
+                <img src="images/熊猫1.png" alt="熊猫 Panda" class="thumbnail active">
+                <img src="images/火锅.jpg" alt="火锅 Hot Pot" class="thumbnail">
+                <img src="images/文殊院.jpg" alt="文殊院 Wenshu Temple" class="thumbnail">
+                <img src="images/川剧喷火.jpg" alt="川剧喷火 Sichuan Opera Fire" class="thumbnail">
+                <img src="images/夜游锦江.jpg" alt="夜游锦江 Jinjiang Night Cruise" class="thumbnail">
+            </div>
+            <div class="product-header-right">
+                <img src="images/熊猫1.png" alt="熊猫 Panda" class="main-image">
+                <div class="product-title-overlay">
+                    <h1 class="product-title" data-i18n="Chengdu All-Day Packed">Chengdu All-Day Packed</h1>
+                    <p class="product-subtitle" data-i18n="Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise">Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise</p>
+                </div>
             </div>
         </div>
 
@@ -862,6 +937,24 @@
                     document.body.classList.add('lang-en');
                 }
             }
+
+            // 图片轮播功能
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const mainImage = document.querySelector('.main-image');
+
+            thumbnails.forEach((thumbnail, index) => {
+                thumbnail.addEventListener('click', function() {
+                    // 移除所有缩略图的active类
+                    thumbnails.forEach(thumb => thumb.classList.remove('active'));
+                    
+                    // 为当前点击的缩略图添加active类
+                    this.classList.add('active');
+                    
+                    // 更新大图
+                    mainImage.src = this.src;
+                    mainImage.alt = this.alt;
+                });
+            });
         });
     </script>
 </body>
