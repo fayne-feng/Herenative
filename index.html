@@ -5,6 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HereNative - 探索真实的中国</title>
     <link rel="icon" type="image/x-icon" href="images/商标.png">
+    
+    <!-- HTTPS强制重定向 -->
+    <script>
+        // 检查当前协议，如果不是HTTPS则重定向
+        if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            window.location.href = window.location.href.replace('http:', 'https:');
+        }
+    </script>
+    
+    <!-- 协议保持和HTTPS强制重定向 -->
+    <script>
+        (function() {
+            // 强制HTTPS重定向（排除本地开发环境）
+            const isLocalhost = window.location.hostname === 'localhost' || 
+                               window.location.hostname === '127.0.0.1' ||
+                               window.location.hostname.includes('192.168.') ||
+                               window.location.hostname.includes('10.') ||
+                               window.location.hostname.includes('172.');
+            
+            if (window.location.protocol === 'http:' && !isLocalhost) {
+                const httpsUrl = window.location.href.replace('http:', 'https:');
+                window.location.replace(httpsUrl);
+                return;
+            }
+            
+            // 确保所有相对链接都使用当前协议
+            const currentProtocol = window.location.protocol;
+            const currentHost = window.location.host;
+            
+            // 重写所有相对链接为绝对链接
+            document.addEventListener('DOMContentLoaded', function() {
+                const links = document.querySelectorAll('a[href^="./"], a[href^="/"], a[href^="?"]');
+                links.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href && !href.startsWith('http') && !href.startsWith('#')) {
+                        link.href = currentProtocol + '//' + currentHost + href;
+                    }
+                });
+            });
+            
+            // 重写所有相对图片链接
+            document.addEventListener('DOMContentLoaded', function() {
+                const images = document.querySelectorAll('img[src^="./"], img[src^="/"]');
+                images.forEach(img => {
+                    const src = img.getAttribute('src');
+                    if (src && !src.startsWith('http')) {
+                        img.src = currentProtocol + '//' + currentHost + src;
+                    }
+                });
+            });
+        })();
+    </script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -1018,7 +1071,8 @@
       document.querySelectorAll('.translate-option').forEach(opt=>{
         opt.onclick=function(){
           localStorage.setItem('lang',this.dataset.lang);
-          location.reload();
+          // 使用当前协议重新加载页面
+          window.location.reload();
         };
       });
       document.body.addEventListener('click',function(){
@@ -1353,7 +1407,8 @@ document.querySelectorAll('.translate-option').forEach(opt => {
         setLang(this.dataset.lang);
         const menu = document.getElementById('translate-menu');
         if (menu) menu.style.display = 'none';
-        location.reload(); // 强制刷新页面，确保所有内容切换
+        // 使用当前协议重新加载页面，确保所有内容切换
+        window.location.reload();
     };
 });
 document.body.addEventListener('click', function() {
