@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HereNative - 探索真实的中国</title>
-    <link rel="icon" type="image/x-icon" href="images/商标.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -1003,28 +1002,20 @@
       showCarousel(carouselIndex);
     }
     showCarousel(carouselIndex);
-    
-    // 等待DOM加载完成后再执行语言选择器相关代码
-    document.addEventListener('DOMContentLoaded', function() {
-      // 语言选择器
-      const translateBtn = document.getElementById('translate-btn');
-      const translateMenu = document.getElementById('translate-menu');
-      if (translateBtn && translateMenu) {
-        translateBtn.onclick = function(e){
-          e.stopPropagation();
-          translateMenu.style.display = translateMenu.style.display==='block'?'none':'block';
-        };
-      }
-      document.querySelectorAll('.translate-option').forEach(opt=>{
-        opt.onclick=function(){
-          localStorage.setItem('lang',this.dataset.lang);
-          location.reload();
-        };
-      });
-      document.body.addEventListener('click',function(){
-        if (translateMenu) translateMenu.style.display='none';
-      });
+    // 语言选择器
+    const langSelector = document.getElementById('lang-selector');
+    const langMenu = document.getElementById('lang-menu');
+    langSelector.onclick = function(e){
+      e.stopPropagation();
+      langMenu.style.display = langMenu.style.display==='block'?'none':'block';
+    };
+    document.querySelectorAll('.lang-option').forEach(opt=>{
+      opt.onclick=function(){
+        localStorage.setItem('lang',this.dataset.lang);
+        location.reload();
+      };
     });
+    document.body.addEventListener('click',function(){langMenu.style.display='none';});
     </script>
 </body>
 <script>
@@ -1334,31 +1325,23 @@ function applyTranslation(lang) {
         }
     });
 }
-// 移除重复的事件监听器，因为第一个script已经处理了
-// document.getElementById('translate-btn').onclick = function(e) {
-//     e.stopPropagation();
-//     const menu = document.getElementById('translate-menu');
-//     if (menu) {
-//         menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-//     }
-// };
-const translateMenuElement = document.getElementById('translate-menu');
-if (translateMenuElement) {
-    translateMenuElement.addEventListener('click', function(e) {
-        e.stopPropagation();
-    });
-}
+document.getElementById('translate-btn').onclick = function(e) {
+    e.stopPropagation();
+    const menu = document.getElementById('translate-menu');
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+};
+document.getElementById('translate-menu').addEventListener('click', function(e) {
+    e.stopPropagation();
+});
 document.querySelectorAll('.translate-option').forEach(opt => {
     opt.onclick = function() {
         setLang(this.dataset.lang);
-        const menu = document.getElementById('translate-menu');
-        if (menu) menu.style.display = 'none';
+        document.getElementById('translate-menu').style.display = 'none';
         location.reload(); // 强制刷新页面，确保所有内容切换
     };
 });
 document.body.addEventListener('click', function() {
-    const menu = document.getElementById('translate-menu');
-    if (menu) menu.style.display = 'none';
+    document.getElementById('translate-menu').style.display = 'none';
 });
 window.addEventListener('DOMContentLoaded', function() {
     const lang = localStorage.getItem('lang');
