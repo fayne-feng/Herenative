@@ -1,4 +1,4 @@
-# HTTPS强制重定向
+# HTTPS强制重定向和SSL处理
 RewriteEngine On
 
 # 检查是否不是HTTPS
@@ -16,6 +16,11 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 # 域名重定向 - 确保www和非www都正常工作
 RewriteCond %{HTTP_HOST} ^www\.herenative\.com [NC]
 RewriteRule ^(.*)$ https://herenative.com/$1 [L,R=301]
+
+# 处理SSL证书问题 - 重定向到GitHub Pages
+RewriteCond %{HTTP_HOST} ^herenative\.com$ [NC]
+RewriteCond %{SERVER_NAME} !^fayne-feng\.github\.io$
+RewriteRule ^(.*)$ https://fayne-feng.github.io/$1 [L,R=301]
 
 # 处理404错误
 ErrorDocument 404 /404.html
@@ -36,6 +41,9 @@ ErrorDocument 404 /404.html
     
     # 引用策略
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # 内容安全策略
+    Header always set Content-Security-Policy "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; img-src 'self' https: data:; font-src 'self' https: data:;"
 </IfModule>
 
 # 缓存设置
