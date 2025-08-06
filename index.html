@@ -14,9 +14,23 @@
         }
     </script>
     
-    <!-- 协议保持和HTTPS强制重定向 -->
+    <!-- SSL证书问题修复 -->
     <script>
+        // 检查SSL证书问题并重定向
         (function() {
+            const currentHost = window.location.hostname;
+            const currentProtocol = window.location.protocol;
+            
+            // 如果是herenative.com且不是HTTPS，重定向到www版本
+            if (currentHost === 'herenative.com' && currentProtocol === 'https:') {
+                // 检查是否有SSL证书问题
+                if (window.location.href.includes('herenative.com') && !window.location.href.includes('www.')) {
+                    // 重定向到www版本，这个通常有正确的SSL证书
+                    const newUrl = window.location.href.replace('https://herenative.com', 'https://www.herenative.com');
+                    window.location.href = newUrl;
+                }
+            }
+            
             // 强制HTTPS重定向（排除本地开发环境）
             const isLocalhost = window.location.hostname === 'localhost' || 
                                window.location.hostname === '127.0.0.1' ||
@@ -31,8 +45,7 @@
             }
             
             // 确保所有相对链接都使用当前协议
-            const currentProtocol = window.location.protocol;
-            const currentHost = window.location.host;
+            const currentHost2 = window.location.host;
             
             // 重写所有相对链接为绝对链接
             document.addEventListener('DOMContentLoaded', function() {
@@ -40,7 +53,7 @@
                 links.forEach(link => {
                     const href = link.getAttribute('href');
                     if (href && !href.startsWith('http') && !href.startsWith('#')) {
-                        link.href = currentProtocol + '//' + currentHost + href;
+                        link.href = currentProtocol + '//' + currentHost2 + href;
                     }
                 });
             });
@@ -51,7 +64,7 @@
                 images.forEach(img => {
                     const src = img.getAttribute('src');
                     if (src && !src.startsWith('http')) {
-                        img.src = currentProtocol + '//' + currentHost + src;
+                        img.src = currentProtocol + '//' + currentHost2 + src;
                     }
                 });
             });
