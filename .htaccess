@@ -13,6 +13,13 @@ RewriteCond %{HTTP_HOST} !^172\.
 # 重定向到HTTPS
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# 域名重定向 - 确保www和非www都正常工作
+RewriteCond %{HTTP_HOST} ^www\.herenative\.com [NC]
+RewriteRule ^(.*)$ https://herenative.com/$1 [L,R=301]
+
+# 处理404错误
+ErrorDocument 404 /404.html
+
 # 安全头设置
 <IfModule mod_headers.c>
     # 强制HTTPS
