@@ -3,30 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HereNative - 探索真实的中国</title>
-    <link rel="icon" type="image/x-icon" href="images/商标.png">
+    <title>HereNative - Chengdu Travel Guide</title>
+    
+    <!-- 图片预加载优化 -->
+    <link rel="preload" as="image" href="images/川剧喷火.jpg">
+    <link rel="preload" as="image" href="images/夜游锦江.jpg">
+    <link rel="preload" as="image" href="images/成都夜市.jpg">
+    
+    <!-- 字体预加载 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1542662565-7e4b66bae529?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80">
-    <!-- 协议与域名规范化（单次无闪烁跳转） -->
-    <script>
-      (function(){
-        var host = location.hostname;
-        var isLocal = host === 'localhost' || host === '127.0.0.1' || host.indexOf('192.168.')===0 || host.indexOf('10.')===0 || host.indexOf('172.')===0;
-        if (location.protocol === 'http:' && !isLocal) {
-          location.replace(location.href.replace('http:', 'https:'));
-          return;
-        }
-        if (host === 'herenative.com') {
-          location.replace(location.href.replace('://herenative.com', '://www.herenative.com'));
-        }
-      })();
-    </script>
     
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+      /* 图片加载优化样式 */
+      .carousel-item img {
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        will-change: opacity;
+      }
+      
+      .carousel-item img.loaded {
+        opacity: 1;
+      }
+      
+      /* 图片加载占位符 */
+      .image-placeholder {
+        background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+        border-radius: 8px;
+      }
+      
+      @keyframes loading {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+      
+      /* 渐进式图片加载 */
+      .progressive-image {
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .progressive-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: filter 0.3s ease;
+      }
+      
+      .progressive-image img.loading {
+        filter: blur(10px);
+      }
+      
+      .progressive-image img.loaded {
+        filter: blur(0);
+      }
+
         * {
             margin: 0;
             padding: 0;
@@ -1069,19 +1105,17 @@
     <!-- <div style="padding-top:90px;text-align:center;">
       <h1 style="font-size:48px;font-weight:800;color:#708238;letter-spacing:2px;">Chengdu</h1>
     </div> -->
-    <!-- 4. 活动轮播图升级 - 修改Chengdu文字样式 -->
-    <section class="carousel-section">
-      <div class="activity-carousel" style="position:relative;">
-        <div style="position:absolute;left:12px;top:8px;z-index:10;">
-          <span style="font-size:24px;font-weight:800;color:#ffffff;padding:3px 18px 3px 8px;border-radius:8px;letter-spacing:1px;">Chengdu</span>
-        </div>
-        <div class="carousel-track">
+    <!-- 4. 轮播图展示 -->
+    <section class="section" style="background:#fff;border-radius:18px;max-width:1200px;margin:48px auto 0 auto;box-shadow:0 4px 24px rgba(112,130,56,0.13);padding:24px;">
+      <h2 class="section-title" style="color:#708238;text-align:center;margin-bottom:12px;">Chengdu Highlights</h2>
+      <div class="carousel" id="carousel">
+        <div class="carousel-container">
           <div class="carousel-item active">
-            <img src="images/川剧喷火.jpg" alt="Face-Changing & Fire-Breathing" loading="eager" decoding="async">
+            <img src="images/川剧喷火.jpg" alt="Face-Changing & Fire-Breathing" loading="lazy" decoding="async" style="opacity: 0; transition: opacity 0.3s ease-in-out;" onload="this.style.opacity='1'">
             <div class="carousel-caption panda-caption">
               <div class="caption-center">
                 <div class="caption-title">Face-Changing & Fire-Breathing</div>
-                <div class="caption-desc">Witness the Dazzling Art of Sichuan Opera's Fire Spitting!</div>
+                <div class="caption-desc">Experience the Magic of Sichuan Opera!</div>
               </div>
               <a href="chengdu-all-day-packed.html" class="btn btn-primary panda-join-btn join-btn-unify">Join Now</a>
             </div>
@@ -1308,358 +1342,67 @@
       return false;
     }
     </script>
+    <!-- 图片加载优化脚本 -->
+    <script>
+      // 图片加载优化
+      document.addEventListener('DOMContentLoaded', function() {
+        // 渐进式图片加载
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        
+        images.forEach(img => {
+          // 添加加载状态类
+          img.classList.add('loading');
+          
+          // 图片加载完成后的处理
+          img.addEventListener('load', function() {
+            this.classList.remove('loading');
+            this.classList.add('loaded');
+            this.style.opacity = '1';
+          });
+          
+          // 图片加载失败的处理
+          img.addEventListener('error', function() {
+            this.classList.remove('loading');
+            console.warn('图片加载失败:', this.src);
+          });
+        });
+        
+        // 预加载关键图片
+        const preloadImages = [
+          'images/川剧喷火.jpg',
+          'images/夜游锦江.jpg', 
+          'images/成都夜市.jpg'
+        ];
+        
+        preloadImages.forEach(src => {
+          const img = new Image();
+          img.src = src;
+        });
+      });
+      
+      // 轮播图优化
+      function switchCarousel(direction) {
+        const carousel = document.getElementById('carousel');
+        const items = carousel.querySelectorAll('.carousel-item');
+        const activeItem = carousel.querySelector('.carousel-item.active');
+        let currentIndex = Array.from(items).indexOf(activeItem);
+        
+        // 移除当前活动项
+        activeItem.classList.remove('active');
+        
+        // 计算下一个索引
+        currentIndex = (currentIndex + direction + items.length) % items.length;
+        
+        // 激活下一个项目
+        items[currentIndex].classList.add('active');
+        
+        // 预加载下一张图片
+        const nextIndex = (currentIndex + 1) % items.length;
+        const nextImg = items[nextIndex].querySelector('img');
+        if (nextImg && nextImg.loading === 'lazy') {
+          nextImg.loading = 'eager';
+        }
+      }
+    </script>
 </body>
-<script>
-// 语言包（与panda-detail.html一致，需补全所有页面所有文字的翻译）
-const translations = {
-    en: {
-        "探索真正的中国": "Explore the Real China",
-        "当地人，带您体验地道的中国生活": "Locals guide you to authentic Chinese life",
-        "注册": "Sign Up",
-        "登录": "Login",
-        "翻译": "Translate",
-        "选择城市": "成都游玩",
-        "请选择城市": "Please select a city",
-        "成都": "Chengdu",
-        "重庆": "Chongqing",
-        "本地一日": "Local One Day",
-        "深度体验": "In-depth Experience",
-        "搜索": "Search",
-        "你想去哪个城市？": "Which city do you want to visit?",
-        "日期": "Date",
-        "人数": "People",
-        "立刻体验": "Experience Now",
-        "江畔惬意漫步": "Leisurely Riverside Walk",
-        "地道点心": "Authentic Snack Shop",
-        "市井集市体验": "Local Market Experience",
-        "骑行漫游成都": "Cycling Tour in Chengdu",
-        "尊享SPA服务": "Premium SPA Service",
-        "古镇": "Ancient Town Day",
-        "文化": "Culture Day",
-        "山林": "Forest Day",
-        "城市": "City Day",
-        "放松": "Relaxation Day",
-        "体验地道本地生活，深入城市日常，适合时间有限的你": "Experience authentic local life, dive into city routines, perfect for those with limited time.",
-        "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好者": "Explore culture and nature in depth, gain richer travel memories, perfect for enthusiasts.",
-        "大熊猫互动": "Panda Interaction",
-        "与国宝大熊猫亲密互动，感受自然与生命的奇妙": "Get close to pandas and feel the wonder of nature and life.",
-        "蜀宴赋": "Shu Banquet",
-        "品味川蜀美食盛宴，体验地道巴蜀文化": "Taste Sichuan cuisine and experience authentic Bashu culture.",
-        "夜游锦江": "Night Tour of Jinjiang",
-        "夜色下泛舟锦江，领略成都独特夜景风情": "Boat on Jinjiang at night and enjoy Chengdu's unique night view.",
-        "服务": "Services",
-        "本地一日": "Local One Day",
-        "深度体验": "In-depth Experience",
-        "体验地道本地生活，深入城市日常，适合时间有限的你": "Experience authentic local life, dive into city routines, perfect for those with limited time.",
-        "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好者": "Explore culture and nature in depth, gain richer travel memories, perfect for enthusiasts.",
-        "Login/Sign Up": "Login/Sign Up",
-        "Chengdu All-Day Packed": "Chengdu All-Day Packed",
-        "Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise": "Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise",
-        "GEN-Z CHENGDU PLAYBOOK: 24HRS OF VIBES": "Gen-Z Chengdu Playbook: 9hrs of Vibes",
-        "Private ride, Hotpot, Massage,Buffet,Top bar,Night Culture. One day to live your best Chengdu life.": "Private ride, Hotpot, Massage,Buffet,Top bar,Night Culture. One day to live your best Chengdu life.",
-        // ...继续补全页面所有中文内?..
-    },
-    ja: {
-        "Login/Sign Up": "ログイン/登録",
-        "登录": "ログイン",
-        "注册": "登録",
-        "邮箱": "メールアドレス",
-        "密码": "パスワード",
-        "手机号码": "携帯番号",
-        "请设置密码": "パスワードを設定してください",
-        "请再次输入密码": "もう一度パスワードを入力してください",
-        "请输入邮箱": "メールアドレスを入力してください",
-        "请输入密码": "パスワードを入力してください",
-        "请输入手机号码": "携帯番号を入力してください",
-        "Join now": "今すぐ参加",
-        "Experience now": "今すぐ体験",
-        "Panda (Morning)": "パンダ（午前）",
-        "Visit Chengdu Panda Base and meet adorable pandas": "成都パンダ基地を訪れ、かわいいパンダに会いましょう",
-        "Imperial Banquet (Lunch)": "蜀宴賦（ランチ）",
-        "Enjoy exquisite Sichuan cuisine and cultural show": "精巧な四川料理と文化ショーを楽しむ",
-        "Sichuan Opera (Afternoon)": "川劇（午後）",
-        "Face-changing, fire-spitting, and more": "変面、火吹きなどのパフォーマンス",
-        "Night River Cruise": "夜錦江クルーズ",
-        "Boat on Jinjiang and enjoy the night view": "錦江で夜景を楽しむ",
-        "City Service": "Day Local",
-        "City Activity": "Day Local",
-        "Imperial Banquet": "蜀宴賦",
-        "The cultural performances and exquisite Sichuan cuisine of each dynasty in Chengdu": "成都各時代の文化公演と精巧な四川料理",
-        "Panda Feeding (Chengdu Base)": "パンダ餌やり（成都基地）",
-        "Get close to adorable pandas and experience their daily life at Chengdu Panda Base": "かわいいパンダとふれあい、成都パンダ基地の日常を体験",
-        "Boat on Jinjiang at night and enjoy Chengdu's unique night view": "夜の錦江で成都独特の夜景を楽しむ",
-        "Sichuan Opera": "川劇",
-        "Marvel at the magical face-changing and fire-spitting performances": "魔法のような変面と火吹きパフォーマンスに驚く"
-    },
-    ko: {
-        "Login/Sign Up": "로그인/회원가입",
-        "登录": "로그인",
-        "注册": "회원가입",
-        "邮箱": "이메일",
-        "密码": "비밀번호",
-        "手机号码": "휴대폰 번호",
-        "请设置密码": "비밀번호를 설정하세요",
-        "请再次输入密码": "비밀번호를 다시 입력하세요",
-        "请输入邮箱": "이메일을 입력하세요",
-        "请输入密码": "비밀번호를 입력하세요",
-        "请输入手机号码": "휴대폰 번호를 입력하세요",
-        "Join now": "지금 가입하기",
-        "Experience now": "지금 경험하기",
-        "Panda (Morning)": "판다(오전)",
-        "Visit Chengdu Panda Base and meet adorable pandas": "청두 판다 기지 방문, 귀여운 판다 만나기",
-        "Imperial Banquet (Lunch)": "촉연부(점심)",
-        "Enjoy exquisite Sichuan cuisine and cultural show": "정교한 쓰촨 요리와 문화 공연 즐기기",
-        "Sichuan Opera (Afternoon)": "쓰촨 오페라(오후)",
-        "Face-changing, fire-spitting, and more": "변검, 불뿜기 등 공연",
-        "Night River Cruise": "야간 강 유람",
-        "Boat on Jinjiang and enjoy the night view": "진강에서 야경 감상",
-        "City Service": "Day Local",
-        "City Activity": "Day Local",
-        "Imperial Banquet": "촉연부",
-        "The cultural performances and exquisite Sichuan cuisine of each dynasty in Chengdu": "청두 각 시대의 문화 공연과 정교한 쓰촨 요리",
-        "Panda Feeding (Chengdu Base)": "판다 먹이주기(청두 기지)",
-        "Get close to adorable pandas and experience their daily life at Chengdu Panda Base": "귀여운 판다와 가까이, 청두 판다 기지의 일상 체험",
-        "Boat on Jinjiang at night and enjoy Chengdu's unique night view": "진강에서 밤에 청두의 독특한 야경 감상",
-        "Sichuan Opera": "쓰촨 오페라",
-        "Marvel at the magical face-changing and fire-spitting performances": "마법 같은 변검과 불뿜기 공연에 감탄"
-    },
-    zh: {
-        "探索真正的中国": "探索真正的中国",
-        "当地人，带您体验地道的中国生活": "当地人，带您体验地道的中国生活",
-        "注册": "注册",
-        "登录": "登录",
-        "翻译": "翻译",
-        "选择城市": "成都游玩",
-        "请选择城市": "请选择城市",
-        "成都": "成都",
-        "重庆": "重庆",
-        "本地一日": "本地一日",
-        "深度体验": "深度体验",
-        "搜索": "搜索",
-        "你想去哪个城市？": "你想去哪个城市？",
-        "日期": "日期",
-        "人数": "人数",
-        "立刻体验": "立刻体验",
-        "江畔惬意漫步": "江畔惬意漫步",
-        "地道点心": "地道点心",
-        "市井集市体验": "市井集市体验",
-        "骑行漫游成都": "骑行漫游成都",
-        "尊享SPA服务": "尊享SPA服务",
-        "古镇": "古镇",
-        "文化": "文化",
-        "山林": "山林",
-        "城市": "城市",
-        "放松": "放松",
-        "体验地道本地生活，深入城市日常，适合时间有限的你": "体验地道本地生活，深入城市日常，适合时间有限的你",
-        "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好者": "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好者",
-        "大熊猫互动": "大熊猫互动",
-        "与国宝大熊猫亲密互动，感受自然与生命的奇妙": "与国宝大熊猫亲密互动，感受自然与生命的奇妙",
-        "蜀宴赋": "蜀宴赋",
-        "品味川蜀美食盛宴，体验地道巴蜀文化": "品味川蜀美食盛宴，体验地道巴蜀文化",
-        "夜游锦江": "夜游锦江",
-        "夜色下泛舟锦江，领略成都独特夜景风情": "夜色下泛舟锦江，领略成都独特夜景风情",
-        "服务": "服务",
-        "本地一日": "本地一日",
-        "深度体验": "深度体验",
-        "体验地道本地生活，深入城市日常，适合时间有限的你": "体验地道本地生活，深入城市日常，适合时间有限的你",
-        "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好者": "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好者",
-        "Join now": "立即加入",
-        "Experience now": "立刻体验",
-        "Panda (Morning)": "熊猫（上午）",
-        "Visit Chengdu Panda Base and meet adorable pandas": "参观成都大熊猫基地，邂逅可爱的熊猫",
-        "Imperial Banquet (Lunch)": "蜀宴赋（午餐）",
-        "Enjoy exquisite Sichuan cuisine and cultural show": "享用精致川菜和文化表演",
-        "Sichuan Opera (Afternoon)": "川剧（下午）",
-        "Face-changing, fire-spitting, and more": "变脸、喷火等表演",
-        "Night River Cruise": "夜游锦江",
-        "Boat on Jinjiang and enjoy the night view": "夜游锦江，欣赏夜景",
-        "City Service": "Day Local",
-        "City Activity": "Day Local",
-        "Imperial Banquet": "蜀宴赋",
-        "The cultural performances and exquisite Sichuan cuisine of each dynasty in Chengdu": "成都各朝代的文化表演和精致川菜",
-        "Panda Feeding (Chengdu Base)": "大熊猫喂养（成都基地）",
-        "Get close to adorable pandas and experience their daily life at Chengdu Panda Base": "近距离接触可爱的熊猫，体验成都大熊猫基地的日常生活",
-        "Night River Cruise": "夜游锦江",
-        "Boat on Jinjiang at night and enjoy Chengdu's unique night view": "夜游锦江，欣赏成都独特夜景",
-        "Sichuan Opera": "川剧",
-        "Marvel at the magical face-changing and fire-spitting performances": "欣赏神奇的变脸和喷火表演",
-        "Login/Sign Up": "登录/注册"
-    },
-    th: {
-        "Login/Sign Up": "เข้าสู่ระบบ/สมัครสมาชิก",
-        "登录": "เข้าสู่ระบบ",
-        "注册": "สมัครสมาชิก",
-        "邮箱": "อีเมล",
-        "密码": "รหัสผ่าน",
-        "手机号码": "เบอร์โทรศัพท์มือถือ",
-        "请设置密码": "กรุณาตั้งรหัสผ่าน",
-        "请再次输入密码": "กรุณาใส่รหัสผ่านอีกครั้ง",
-        "请输入邮箱": "กรุณาใส่อีเมล",
-        "请输入密码": "กรุณาใส่รหัสผ่าน",
-        "请输入手机号码": "กรุณาใส่เบอร์โทรศัพท์มือถือ",
-        "Join now": "เข้าร่วมทันที",
-        "Experience now": "สัมผัสประสบการณ์ทันที",
-        "Panda (Morning)": "แพนด้า (เช้า)",
-        "Visit Chengdu Panda Base and meet adorable pandas": "เยี่ยมชมฐานแพนด้าเฉิงตู พบกับแพนด้าน่ารัก",
-        "Imperial Banquet (Lunch)": "งานเลี้ยงจักรพรรดิ (กลางวัน)",
-        "Enjoy exquisite Sichuan cuisine and cultural show": "เพลิดเพลินกับอาหารเสฉวนและการแสดงวัฒนธรรม",
-        "Sichuan Opera (Afternoon)": "งิ้วเสฉวน (บ่าย)",
-        "Face-changing, fire-spitting, and more": "การเปลี่ยนหน้ากาก พ่นไฟ และอื่นๆ",
-        "Night River Cruise": "ล่องเรือยามค่ำคืน",
-        "Boat on Jinjiang and enjoy the night view": "ล่องเรือแม่น้ำจินเจียง ชมวิวกลางคืน",
-        "City Service": "Day Local",
-        "City Activity": "Day Local",
-        "Imperial Banquet": "งานเลี้ยงจักรพรรดิ",
-        "The cultural performances and exquisite Sichuan cuisine of each dynasty in Chengdu": "การแสดงวัฒนธรรมและอาหารเสฉวนของแต่ละราชวงศ์ในเฉิงตู",
-        "Panda Feeding (Chengdu Base)": "ให้อาหารแพนด้า (ฐานเฉิงตู)",
-        "Get close to adorable pandas and experience their daily life at Chengdu Panda Base": "ใกล้ชิดแพนด้าน่ารักและสัมผัสชีวิตประจำวันของพวกเขาที่ฐานแพนด้าเฉิงตู",
-        "Boat on Jinjiang at night and enjoy Chengdu's unique night view": "ล่องเรือแม่น้ำจินเจียงยามค่ำคืน ชมวิวเฉิงตู",
-        "Sichuan Opera": "งิ้วเสฉวน",
-        "Marvel at the magical face-changing and fire-spitting performances": "ตื่นตาตื่นใจกับการเปลี่ยนหน้ากากและพ่นไฟ"
-    },
-    ms: {
-        "Login/Sign Up": "Log Masuk/Daftar",
-        "登录": "Log Masuk",
-        "注册": "Daftar",
-        "邮箱": "E-mel",
-        "密码": "Kata Laluan",
-        "手机号码": "Nombor Telefon",
-        "请设置密码": "Sila tetapkan kata laluan",
-        "请再次输入密码": "Sila masukkan kata laluan sekali lagi",
-        "请输入邮箱": "Sila masukkan e-mel",
-        "请输入密码": "Sila masukkan kata laluan",
-        "请输入手机号码": "Sila masukkan nombor telefon",
-        "Join now": "Sertai sekarang",
-        "Experience now": "Alami sekarang",
-        "Panda (Morning)": "Panda (Pagi)",
-        "Visit Chengdu Panda Base and meet adorable pandas": "Lawati Pangkalan Panda Chengdu dan temui panda comel",
-        "Imperial Banquet (Lunch)": "Jamuan Diraja (Tengahari)",
-        "Enjoy exquisite Sichuan cuisine and cultural show": "Nikmati masakan Sichuan dan pertunjukan budaya",
-        "Sichuan Opera (Afternoon)": "Opera Sichuan (Petang)",
-        "Face-changing, fire-spitting, and more": "Tukar muka, meludah api dan lain-lain",
-        "Night River Cruise": "Pelayaran Sungai Malam",
-        "Boat on Jinjiang and enjoy the night view": "Berperahu di Jinjiang dan nikmati pemandangan malam",
-        "City Service": "Day Local",
-        "City Activity": "Day Local",
-        "Imperial Banquet": "Jamuan Diraja",
-        "The cultural performances and exquisite Sichuan cuisine of each dynasty in Chengdu": "Persembahan budaya dan masakan Sichuan setiap dinasti di Chengdu",
-        "Panda Feeding (Chengdu Base)": "Memberi Makan Panda (Pangkalan Chengdu)",
-        "Get close to adorable pandas and experience their daily life at Chengdu Panda Base": "Dekati panda comel dan alami kehidupan harian mereka di Pangkalan Panda Chengdu",
-        "Boat on Jinjiang at night and enjoy Chengdu's unique night view": "Berperahu di Jinjiang pada waktu malam dan nikmati pemandangan malam Chengdu yang unik",
-        "Sichuan Opera": "Opera Sichuan",
-        "Marvel at the magical face-changing and fire-spitting performances": "Terpesona dengan pertunjukan tukar muka dan meludah api"
-    },
-    vi: {
-        "Login/Sign Up": "Đăng nhập/Đăng ký",
-        "登录": "Đăng nhập",
-        "注册": "Đăng ký",
-        "邮箱": "Email",
-        "密码": "Mật khẩu",
-        "手机号码": "Số điện thoại",
-        "请设置密码": "Vui lòng đặt mật khẩu",
-        "请再次输入密码": "Vui lòng nhập lại mật khẩu",
-        "请输入邮箱": "Vui lòng nhập email",
-        "请输入密码": "Vui lòng nhập mật khẩu",
-        "请输入手机号码": "Vui lòng nhập số điện thoại",
-        "Join now": "Tham gia ngay",
-        "Experience now": "Trải nghiệm ngay",
-        "Panda (Morning)": "Gấu trúc (Buổi sáng)",
-        "Visit Chengdu Panda Base and meet adorable pandas": "Tham quan Căn cứ Gấu trúc Thành Đô và gặp gỡ những chú gấu trúc dễ thương",
-        "Imperial Banquet (Lunch)": "Yến tiệc Hoàng gia (Bữa trưa)",
-        "Enjoy exquisite Sichuan cuisine and cultural show": "Thưởng thức ẩm thực Tứ Xuyên tinh tế và chương trình văn hóa",
-        "Sichuan Opera (Afternoon)": "Kịch Tứ Xuyên (Buổi chiều)",
-        "Face-changing, fire-spitting, and more": "Thay mặt, phun lửa và nhiều hơn nữa",
-        "Night River Cruise": "Du thuyền sông đêm",
-        "Boat on Jinjiang and enjoy the night view": "Du thuyền trên sông Jinjiang và ngắm cảnh đêm",
-        "City Service": "Day Local",
-        "City Activity": "Day Local",
-        "Imperial Banquet": "Yến tiệc Hoàng gia",
-        "The cultural performances and exquisite Sichuan cuisine of each dynasty in Chengdu": "Các buổi biểu diễn văn hóa và ẩm thực Tứ Xuyên tinh tế của từng triều đại ở Thành Đô",
-        "Panda Feeding (Chengdu Base)": "Cho Gấu trúc ăn (Căn cứ Thành Đô)",
-        "Get close to adorable pandas and experience their daily life at Chengdu Panda Base": "Gần gũi với gấu trúc dễ thương và trải nghiệm cuộc sống hàng ngày của chúng tại Căn cứ Gấu trúc Thành Đô",
-        "Boat on Jinjiang at night and enjoy Chengdu's unique night view": "Du thuyền trên sông Jinjiang vào ban đêm và ngắm nhìn cảnh đêm độc đáo của Thành Đô",
-        "Sichuan Opera": "Kịch Tứ Xuyên",
-        "Marvel at the magical face-changing and fire-spitting performances": "Trầm trồ trước màn thay mặt và phun lửa kỳ diệu"
-    }
-};
-function setLang(lang) {
-    localStorage.setItem('lang', lang);
-    applyTranslation(lang);
-    // 设置body的class用于英文页面字母间距
-    if (lang === 'en') {
-        document.body.classList.add('lang-en');
-    } else {
-        document.body.classList.remove('lang-en');
-    }
-}
-function applyTranslation(lang) {
-    const dict = translations[lang];
-    if (!dict) return;
-    
-    // 优先翻译所有带data-i18n的元素
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (dict[key]) el.textContent = dict[key];
-    });
-    
-    // 兼容原有方式
-    document.querySelectorAll('*').forEach(el => {
-        if (el.offsetParent === null && el.tagName !== 'BODY') return;
-        if (el.childNodes.length === 1 && el.childNodes[0].nodeType === 3) {
-            const txt = el.textContent.trim();
-            if (dict[txt]) el.textContent = dict[txt];
-        }
-        if (el.placeholder && dict[el.placeholder]) el.placeholder = dict[el.placeholder];
-        if (el.value && dict[el.value]) el.value = dict[el.value];
-        if (el.getAttribute && el.getAttribute('aria-label') && dict[el.getAttribute('aria-label')]) {
-            el.setAttribute('aria-label', dict[el.getAttribute('aria-label')]);
-        }
-    });
-}
-// 移除重复的事件监听器，因为第一个script已经处理了
-// document.getElementById('translate-btn').onclick = function(e) {
-//     e.stopPropagation();
-//     const menu = document.getElementById('translate-menu');
-//     if (menu) {
-//         menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-//     }
-// };
-const translateMenuElement = document.getElementById('translate-menu');
-if (translateMenuElement) {
-    translateMenuElement.addEventListener('click', function(e) {
-        e.stopPropagation();
-    });
-}
-document.querySelectorAll('.translate-option').forEach(opt => {
-    opt.onclick = function() {
-        setLang(this.dataset.lang);
-        const menu = document.getElementById('translate-menu');
-        if (menu) menu.style.display = 'none';
-        // 使用当前协议重新加载页面，确保所有内容切换
-        window.location.reload();
-    };
-});
-document.body.addEventListener('click', function() {
-    const menu = document.getElementById('translate-menu');
-    if (menu) menu.style.display = 'none';
-});
-window.addEventListener('DOMContentLoaded', function() {
-    const lang = localStorage.getItem('lang');
-    if (lang) {
-        applyTranslation(lang);
-        if (lang === 'en') {
-            document.body.classList.add('lang-en');
-        } else {
-            document.body.classList.remove('lang-en');
-        }
-    }
-});
-  // 手机端修改搜索栏placeholder
-  document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search-input');
-    if (searchInput && window.innerWidth <= 600) {
-      searchInput.placeholder = 'search';
-    }
-  });
-</script>
 </html> 
