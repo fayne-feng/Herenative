@@ -4,8 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chengdu All-Day Packed - HereNative</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 图片预加载优化 -->
+    <link rel="preload" as="image" href="images/熊猫1.png">
+    <link rel="preload" as="image" href="images/川剧喷火.jpg">
+    <link rel="preload" as="image" href="images/火锅.jpg">
+    
+    <!-- 字体预加载 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
         * {
             margin: 0;
@@ -687,6 +698,51 @@
             /* 桌面端：右侧小图与大图高度对齐并均匀分布 */
             .product-header-left { height: 100%; justify-content: space-between; gap: 0; }
         }
+
+        /* 图片加载优化样式 */
+        img {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            will-change: opacity;
+        }
+        
+        img.loaded {
+            opacity: 1;
+        }
+        
+        /* 图片加载占位符 */
+        .image-placeholder {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 8px;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* 渐进式图片加载 */
+        .progressive-image {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progressive-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: filter 0.3s ease;
+        }
+        
+        .progressive-image img.loading {
+            filter: blur(10px);
+        }
+        
+        .progressive-image img.loaded {
+            filter: blur(0);
+        }
     </style>
 </head>
 <body>
@@ -1178,5 +1234,43 @@
         return false;
       }
     </script>
-</body>
+    <!-- 图片加载优化脚本 -->
+    <script>
+      // 图片加载优化
+      document.addEventListener('DOMContentLoaded', function() {
+        // 渐进式图片加载
+        const images = document.querySelectorAll('img');
+        
+        images.forEach(img => {
+          // 添加加载状态类
+          img.classList.add('loading');
+          
+          // 图片加载完成后的处理
+          img.addEventListener('load', function() {
+            this.classList.remove('loading');
+            this.classList.add('loaded');
+            this.style.opacity = '1';
+          });
+          
+          // 图片加载失败的处理
+          img.addEventListener('error', function() {
+            this.classList.remove('loading');
+            console.warn('图片加载失败:', this.src);
+          });
+        });
+        
+        // 预加载关键图片
+        const preloadImages = [
+          'images/熊猫1.png',
+          'images/川剧喷火.jpg',
+          'images/火锅.jpg'
+        ];
+        
+        preloadImages.forEach(src => {
+          const img = new Image();
+          img.src = src;
+        });
+      });
+    </script>
+  </body>
 </html> 
