@@ -376,17 +376,17 @@
     <header>
         <div class="container">
             <nav class="navbar">
-                <a href="herenative.html" class="logo">
+               <a href="index.html" class="logo">
                     <img src="images/商标.png" alt="商标" style="height:32px;width:32px;margin-right:8px;vertical-align:middle;">
                     HereNative
                 </a>
-                <ul class="nav-links">
-                    <li>
-                        <span id="city-select-btn">成都游玩</span>
-                    </li>
-                    <li><span>本地一日</span></li>
-                    <li><span>深度体验</span></li>
-                </ul>
+                 <ul class="nav-links">
+                     <li>
+                         <span id="city-select-btn">Chengdu Trips</span>
+                     </li>
+                     <li><span>Local One Day</span></li>
+                     <li><span>In-depth Experience</span></li>
+                 </ul>
                 <div class="nav-buttons">
                     <button class="btn btn-outline btn-translate" id="translate-btn">
                         <i class="fas fa-globe"></i>
@@ -410,53 +410,51 @@
     <section class="register-section">
         <div class="register-container">
             <div class="register-header">
-                <h1 class="register-title" data-i18n="创建账号">创建账号</h1>
-                <p class="register-subtitle" data-i18n="加入HereNative，开启您的本地体验之旅">加入HereNative，开启您的本地体验之旅</p>
+                <h1 class="register-title">Create Account</h1>
+                <p class="register-subtitle">Join HereNative and start your local experience journey</p>
             </div>
             <form id="registerForm">
                 <div class="form-row">
                     <div class="form-group">
-                        <label class="form-label" data-i18n="姓">姓</label>
-                        <input type="text" class="form-input" data-i18n-placeholder="请输入您的姓" placeholder="请输入您的姓" required>
+                        <label class="form-label">Last Name</label>
+                        <input type="text" class="form-input" placeholder="Enter your last name" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" data-i18n="名">名</label>
-                        <input type="text" class="form-input" data-i18n-placeholder="请输入您的名" placeholder="请输入您的名" required>
+                        <label class="form-label">First Name</label>
+                        <input type="text" class="form-input" placeholder="Enter your first name" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label" data-i18n="邮箱地址">邮箱地址</label>
-                    <input type="email" class="form-input" data-i18n-placeholder="请输入您的邮箱地址" placeholder="请输入您的邮箱地址" required>
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" placeholder="Enter your email address" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label" data-i18n="手机号码">手机号码</label>
-                    <input type="tel" class="form-input" data-i18n-placeholder="请输入您的手机号码" placeholder="请输入您的手机号码" required>
+                    <label class="form-label">Phone Number</label>
+                    <input type="tel" class="form-input" placeholder="Enter your phone number" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label" data-i18n="密码">密码</label>
-                    <input type="password" class="form-input" data-i18n-placeholder="请设置您的密码" placeholder="请设置您的密码" required>
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" placeholder="Set your password" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label" data-i18n="确认密码">确认密码</label>
-                    <input type="password" class="form-input" data-i18n-placeholder="请再次输入密码" placeholder="请再次输入密码" required>
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" class="form-input" placeholder="Enter the password again" required>
                 </div>
-                <button type="submit" class="register-btn" data-i18n="立即注册">立即注册</button>
+                <button type="submit" class="register-btn">Register</button>
             </form>
             <div class="login-link">
-                <span data-i18n="已有账号？">已有账号？</span><a href="#" data-i18n="立即登录">立即登录</a>
+                <span>Already have an account?</span><a href="#">Login</a>
             </div>
         </div>
     </section>
 
     <!-- 页脚 -->
-    <footer>
-        <div class="container">
-            <div class="copyright">
-                <span>Herenative &copy; 2025</span>
-                <span style="margin-left:12px;">WhatsApp us at +7419737390</span>
-            </div>
-        </div>
-    </footer>
+    <div style="width:100%;background:#38441b;color:white;text-align:center;padding:18px 0;font-size:15px;letter-spacing:1px;margin-top:auto;">
+      <div class="bottom-bar">
+        <a href="https://wa.me/7419737390" target="_blank" onclick="return contactWhatsApp(event)" class="btn btn-translate" style="display:inline-flex;vertical-align:middle;margin-left:0;padding:6px 14px;background:#ffffff;color:#708238;border:1px solid #708238;border-radius:8px;text-decoration:none;">WhatsApp us at +7419737390</a>
+        <span style="display:inline-block;vertical-align:middle;">Herenative &copy; 2025</span>
+      </div>
+    </div>
 
     <script>
     // 城市选择卡片弹出与收回
@@ -642,6 +640,22 @@
             applyTranslation(lang);
         }
     });
+    </script>
+    <script>
+      function contactWhatsApp(e){
+        try {
+          const phone = '+7419737390';
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(phone);
+          } else {
+            const ta = document.createElement('textarea');
+            ta.value = phone; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+          }
+        } catch(err) {}
+        window.open('https://wa.me/7419737390','_blank');
+        e.preventDefault();
+        return false;
+      }
     </script>
 </body>
 </html> 

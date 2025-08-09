@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gen-Z Chengdu Playbook: 12hrs of Vibes - HereNative</title>
+    <title>Gen-Z Chengdu Playbook: 9hrs of Vibes - HereNative</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -59,6 +59,35 @@
             align-items: center;
         }
 
+        /* 返回按钮样式 */
+        .back-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: transparent;
+            border: 1px solid var(--primary);
+            border-radius: 50%;
+            color: var(--primary);
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-right: 16px;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+        }
+
         .logo {
             font-size: 24px;
             font-weight: 700;
@@ -85,6 +114,43 @@
             font-size: 14px;
             transition: color 0.3s;
             cursor: default;
+        }
+
+        /* 搜索栏样式 */
+        .search-container {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 8px 16px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 14px;
+            background: var(--light);
+            transition: all 0.3s;
+            outline: none;
+        }
+
+        .search-bar:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(112, 130, 56, 0.1);
+        }
+
+        .search-bar::placeholder {
+            color: var(--gray);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 14px;
         }
 
         .nav-buttons {
@@ -281,11 +347,12 @@
             top: 120px;
         }
 
-        .price {
+            .price {
             font-size: 32px;
             font-weight: 700;
             color: var(--primary);
             margin-bottom: 20px;
+            text-align: center;
         }
 
         .price small {
@@ -335,6 +402,10 @@
             display: flex;
             gap: 10px;
             margin-bottom: 15px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap; /* 同一行显示 */
+            white-space: nowrap;
         }
 
         .badge {
@@ -472,8 +543,32 @@
                 display: none;
             }
             
-            .nav-buttons {
-                position: relative;
+            .search-container { display: none; }
+            
+            .search-bar {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+            
+            .navbar-left {
+                flex: 1;
+                justify-content: flex-start;
+            }
+            
+            .back-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+                margin-right: 12px;
+            }
+            
+            .logo {
+                font-size: 20px;
+            }
+            
+            .logo img {
+                height: 28px;
+                width: 28px;
             }
             
             .product-grid {
@@ -495,20 +590,20 @@
             }
             
             .product-detail {
-                margin: 40px auto 20px;
+                margin: 0 auto 20px; /* 减小与顶部距离 */
             }
 
             .product-header {
                 flex-direction: column;
                 height: auto;
-                padding: 8px;
+                padding: 10px 8px 0 8px; /* 顶部10px，底部0，贴近小图 */
             }
 
             .product-header-left {
                 flex-direction: row;
                 width: 100%;
                 gap: 8px;
-                margin-top: 8px;
+                margin-top: 0; /* 小图与上方大图距离0 */
                 justify-content: center;
             }
 
@@ -525,6 +620,11 @@
             .product-content {
                 padding: 12px;
             }
+            /* Overview 项目在移动端：标签与数值分两行，左侧对齐 */
+            .overview-item { align-items: flex-start !important; }
+            .overview-item span { display: flex; flex-direction: column; line-height: 1.5; }
+            .overview-item span strong { display: block; margin-bottom: 2px; }
+            .overview-item i { margin-top: 2px; }
         }
 
         .btn-translate {
@@ -670,6 +770,33 @@
             font-size: 14px;
             line-height: 1.4;
         }
+
+        /* 增加 Free Cancellation 与上方间距（全端生效） */
+        .booking-card .cancellation-policy { margin-top: 28px; }
+
+        /* 桌面端：压缩预订卡片底部空白 */
+        @media (min-width: 769px) {
+            .price { font-size: 50px; line-height: 1; }
+            .price .price-sub { display:block; margin-top:0; }
+            /* 桌面端：进一步缩小顶部与大图之间的空白 */
+            .product-detail { padding-top: 72px; margin: 10px auto; }
+            .product-header { padding: 8px 12px 0 12px; }
+            .booking-card { padding-bottom: 0; }
+            .booking-card .operator-info { margin-bottom: 0; padding-bottom: 0; }
+            .booking-card .operator-info p { margin-bottom: 0; }
+            .booking-card .booking-btn { margin-top: 20px; }
+            .booking-card .cancellation-policy { margin-top: 24px; }
+            /* 桌面端：头部区域调整——小图到右侧、增大大图高度 */
+            .product-header { flex-direction: row-reverse; height: 520px; }
+            /* 桌面端：右侧小图与大图高度对齐并均匀分布 */
+            .product-header-left { height: 100%; justify-content: space-between; gap: 0; }
+        }
+        /* 底部横条（移动端行距/换行） */
+        .bottom-bar { display:flex; align-items:center; justify-content:center; gap:6px; }
+        @media (max-width: 600px) {
+          .bottom-bar { flex-direction: column; gap: 6px; }
+          .bottom-bar span { line-height: 1.9; }
+        }
     </style>
 </head>
 <body>
@@ -677,16 +804,18 @@
     <header>
         <div class="container">
             <nav class="navbar">
-                <a href="herenative.html" class="logo">
-                    <img src="images/商标.png" alt="商标" style="height:32px;width:32px;margin-right:8px;vertical-align:middle;">
-                    HereNative
-                </a>
+                <div class="navbar-left">
+                    <a href="index.html" class="logo">
+                        <img src="images/商标.png" alt="商标" style="height:32px;width:32px;margin-right:8px;vertical-align:middle;">
+                        HereNative
+                    </a>
+                </div>
                 <ul class="nav-links">
                     <li>
-                        <span id="city-select-btn">成都游玩</span>
+                        <span id="city-select-btn">Chengdu Trips</span>
                     </li>
-                    <li><span>本地一日</span></li>
-                    <li><span>深度体验</span></li>
+                    <li><span>Local One Day</span></li>
+                    <li><span>In-depth Experience</span></li>
                 </ul>
                 <div class="nav-buttons">
                     <button class="btn btn-outline btn-translate" id="translate-btn">
@@ -721,7 +850,7 @@
             <div class="product-header-right">
                 <img src="images/太古里.jpg" alt="太古里 Taikoo Li" class="main-image">
                 <div class="product-title-overlay">
-                    <h1 class="product-title" data-i18n="Gen-Z Chengdu Playbook: 12hrs of Vibes">Gen-Z Chengdu Playbook: 12hrs of Vibes</h1>
+                    <h1 class="product-title" data-i18n="Gen-Z Chengdu Playbook: 9hrs of Vibes">Gen-Z Chengdu Playbook: 9hrs of Vibes</h1>
                     <p class="product-subtitle" data-i18n="Where Ancient Teahouses Meet Cyberpunk Dreams">Where Ancient Teahouses Meet Cyberpunk Dreams</p>
                 </div>
             </div>
@@ -733,94 +862,76 @@
                 <div class="product-info">
                     <!-- 概述 -->
                     <div class="info-section">
-                        <h3><i class="fas fa-info-circle"></i> 概述（Overview）</h3>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 14px; margin-top: 15px;">
-                            <div style="display: flex; align-items: center;">
+                        <h3><i class="fas fa-info-circle"></i> Overview</h3>
+                        <div class="overview-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; font-size: 14px; margin-top: 15px;">
+                            <div class="overview-item" style="display: flex; align-items: center;">
                                 <i class="fas fa-clock" style="color: var(--primary); margin-right: 10px; width: 16px;"></i>
-                                <span><strong>时长：</strong>12 hours（9:30 AM – 9:30 PM）</span>
+                                <span><strong>Duration:</strong> 11:30 AM – 8:30 PM+</span>
                             </div>
-                            <div style="display: flex; align-items: center;">
+                            <div class="overview-item" style="display: flex; align-items: center;">
                                 <i class="fas fa-users" style="color: var(--primary); margin-right: 10px; width: 16px;"></i>
-                                <span><strong>成团：</strong>Private Tour（2-6 people，专属包车 + 导游）</span>
+                                <span><strong>Group size:</strong> 2–8 people (private car + guide)</span>
                             </div>
-                            <div style="display: flex; align-items: center;">
+                            <div class="overview-item" style="display: flex; align-items: center;">
                                 <i class="fas fa-language" style="color: var(--primary); margin-right: 10px; width: 16px;"></i>
-                                <span><strong>语言：</strong>English-speaking guide（全程英文讲解）</span>
+                                <span><strong>Language:</strong> English-speaking guide</span>
                             </div>
-                            <div style="display: flex; align-items: center;">
+                            <div class="overview-item" style="display: flex; align-items: center;">
                                 <i class="fas fa-user-check" style="color: var(--primary); margin-right: 10px; width: 16px;"></i>
-                                <span><strong>年龄：</strong>18+（仅限成人）</span>
+                                <span><strong>Age:</strong> 18+ (adults only)</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- 简洁时间线行程安排 -->
                     <div class="info-section">
-                        <h3><i class="fas fa-clock"></i> 时间线行程安排</h3>
+                        <h3><i class="fas fa-clock"></i> Itinerary</h3>
                         <div class="timeline">
                             <div class="timeline-item">
-                                <div class="timeline-time">9:30 AM</div>
-                                <div class="timeline-title">专车接送</div>
-                                <div class="timeline-desc">从酒店或指定地点出发</div>
+                                <div class="timeline-time">11:30 AM</div>
+                                <div class="timeline-title">Pick Up</div>
+                                <div class="timeline-desc">From hotel or designated location</div>
                             </div>
                             <div class="timeline-item">
-                                <div class="timeline-time">10:00 - 13:00 AM</div>
-                                <div class="timeline-title">太古里 (Taikoo Li)</div>
-                                <div class="timeline-desc">明代庭院与未来主义店铺的视觉碰撞，Instagram网红打卡</div>
+                                <div class="timeline-time">12:00 - 13:30 PM</div>
+                                <div class="timeline-title">Hotpot / Skewers</div>
+                                <div class="timeline-desc">Choose your spice level, English menu, unbeatable ice dessert to cool the heat</div>
                             </div>
                             <div class="timeline-item">
-                                <div class="timeline-time">13:00 - 14:30 PM</div>
-                                <div class="timeline-title">城隍庙老火锅</div>
-                                <div class="timeline-desc">Tripadvisor Top5，推荐鸳鸯锅，必点水晶牛肉</div>
+                                <div class="timeline-time">14:00 - 17:30 PM</div>
+                                <div class="timeline-title">Dongjiao Memory Creative Park</div>
+                                <div class="timeline-desc">Cyber‑industrial art zone converted from old factories; photo spots and fun shops</div>
                             </div>
                             <div class="timeline-item">
-                                <div class="timeline-time">15:00 - 17:00 PM</div>
-                                <div class="timeline-title">东郊记忆</div>
-                                <div class="timeline-desc">旧工厂改造赛博艺术区，巨型复古火箭雕塑</div>
+                                <div class="timeline-time">18:00 - 20:30 PM</div>
+                                <div class="timeline-title">Spa & Sichuan Buffet</div>
+                                <div class="timeline-desc">Spa with unlimited Sichuan dishes and 2K projection</div>
                             </div>
                             <div class="timeline-item">
-                                <div class="timeline-time">17:30 - 19:00 PM</div>
-                                <div class="timeline-title">金色印象足道</div>
-                                <div class="timeline-desc">私密影院包厢 + 60分钟足疗，无限量亚洲美食</div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-time">19:00 - 21:00 PM</div>
-                                <div class="timeline-title">THE RIVER HOUSE</div>
-                                <div class="timeline-desc">尼依格罗酒店28层，全景落地窗俯瞰安顺廊桥</div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-time">21:30 - 深夜</div>
-                                <div class="timeline-title">兰桂坊成都</div>
-                                <div class="timeline-desc">自由活动，奶茶密室、K-pop舞厅、水母酒吧</div>
+                                <div class="timeline-time">After 20:30</div>
+                                <div class="timeline-title">Hotel Drop‑off / Lan Kwai Fong Bar Street</div>
+                                <div class="timeline-desc">Choose hotel drop‑off, or ride to Lan Kwai Fong — Chengdu’s bar street with hundreds of bars</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 预订政策 -->
-                    <div class="info-section">
-                        <h3><i class="fas fa-calendar-alt"></i> 预订政策（Booking Policies）</h3>
-                        <ul class="info-list">
-                            <li><i class="fas fa-times-circle"></i> 取消规则：提前 24 小时免费取消（Full refund if canceled ≥24h before）</li>
-                            <li><i class="fas fa-exclamation-triangle"></i> 24 小时内取消收取 25% 费用（50% fee for last-one-hour cancellation）</li>
-                            <li><i class="fas fa-credit-card"></i> 支付方式：Visa/Mastercard/PayPal/Wechat/ALI Pay</li>
-                        </ul>
-                    </div>
+                    
 
                     <!-- 运营商信息 -->
                     <div class="info-section">
-                        <h3><i class="fas fa-building"></i> 运营商信息</h3>
-                        <p style="margin-bottom: 15px;"><strong>运营商：</strong>HereNative Chengdu Company</p>
-                        
-                        <h4 style="color: var(--primary-dark); margin-bottom: 10px;">资质认证：</h4>
+                        <h3><i class="fas fa-building"></i> Operator Information</h3>
+                        <p style="margin-bottom: 15px;">HereNative Chengdu Company</p>
+
+                        <h4 style="color: var(--primary-dark); margin-bottom: 10px;">Certifications:</h4>
                         <ul class="info-list">
-                            <li><i class="fas fa-check-circle"></i> 成都市文旅局认证服务商</li>
-                            <li><i class="fas fa-award"></i> Tripadvisor 2025 Travelers'Choice（旅行者之选）</li>
+                            <li><i class="fas fa-check-circle"></i> Certified by Chengdu Municipal Culture & Tourism</li>
+                            <li><i class="fas fa-award"></i> Tripadvisor 2025 Travelers’ Choice</li>
                         </ul>
 
-                        <h4 style="color: var(--primary-dark); margin-bottom: 10px;">导游团队：</h4>
+                        <h4 style="color: var(--primary-dark); margin-bottom: 10px;">Guide Team:</h4>
                         <ul class="info-list">
-                            <li><i class="fas fa-graduation-cap"></i> 英语专业八级，持证导游</li>
-                            <li><i class="fas fa-globe"></i> 团队人员都曾留学海外（UK/US/AU），熟悉西方文化偏好</li>
+                            <li><i class="fas fa-graduation-cap"></i> Licensed guides with advanced English proficiency</li>
+                            <li><i class="fas fa-globe"></i> Team with overseas study experience (UK/US/AU), familiar with Western preferences</li>
                         </ul>
                     </div>
                 </div>
@@ -828,16 +939,37 @@
                 <!-- 右侧预订卡片 -->
                 <div class="booking-card">
                     <div class="price">
-                        ¥1,580 <small>per person</small>
+                        $79<span class="price-sub"><small>per person</small> <span style="font-size:14px;color:#55612b;font-weight:600;">(20%off！)</span></span>
+                    </div>
+                    <div style="font-size:12px;color:#856404;background:#fff3cd;border:1px solid #ffeaa7;border-radius:6px;padding:8px 10px;margin-top:-12px;margin-bottom:12px;text-align:center;">
+                        World Games limited-time 20% off (original price $99)
                     </div>
                     
                     <button class="btn btn-primary booking-btn" onclick="bookNow()">
-                        <i class="fas fa-calendar-plus"></i> Book Now
+                        <i class="fas fa-calendar-plus"></i> Book at
                     </button>
+                    <div class="qr-booking" style="margin-top:12px;display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;">
+                        <div style="text-align:center;">
+                            <div style="width:150px;height:150px;border:1px solid #e0e2dd;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#f9faf7;overflow:hidden;">
+                                <img src="images/Wechat.png" alt="WeChat QR" loading="lazy" style="max-width:100%;max-height:100%;" onerror="this.onerror=null;this.src='images/商标.png'">
+                            </div>
+                            <div style="margin-top:6px;color:#38441b;font-weight:600;font-size:14px;">WeChat</div>
+                        </div>
+                        <div style="text-align:center;">
+                            <div style="width:150px;height:150px;border:1px solid #e0e2dd;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#f9faf7;overflow:hidden;">
+                                <img src="images/WhatsApp.png" alt="WhatsApp QR" loading="lazy" style="max-width:100%;max-height:100%;" onerror="this.onerror=null;this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fwa.me%2F7419737390'">
+                            </div>
+                            <div style="margin-top:6px;color:#38441b;font-weight:600;font-size:14px;">WhatsApp</div>
+                        </div>
+                    </div>
                     
                     <div class="cancellation-policy">
                         <h4><i class="fas fa-shield-alt"></i> Free Cancellation</h4>
-                        <p>Cancel up to 24 hours in advance for a full refund</p>
+                        <ul style="margin:0; padding-left:18px; font-size:12px; color:#856404;">
+                            <li>Free cancellation up to 24 hours before (full refund if canceled ≥24h before)</li>
+                            <li>25% fee if canceled within 24 hours</li>
+                            <li>Payment methods: Visa / Mastercard / PayPal / WeChat / Alipay</li>
+                        </ul>
                     </div>
                     
                     <div class="operator-info">
@@ -857,20 +989,33 @@
     </div>
 
     <!-- 页脚 -->
-    <footer>
-        <div class="container">
-            <div class="copyright">
-                <span>Herenative &copy; 2025</span>
-                <span style="margin-left:12px;">WhatsApp us at +7419737390</span>
-            </div>
-        </div>
-    </footer>
+    <div style="width:100%;background:#38441b;color:white;text-align:center;padding:18px 0;font-size:15px;letter-spacing:1px;margin-top:60px;">
+      <div class="bottom-bar">
+        <a href="https://wa.me/7419737390" target="_blank" onclick="return contactWhatsApp(event)" class="btn btn-translate" style="display:inline-flex;vertical-align:middle;margin-left:0;padding:6px 14px;background:#ffffff;color:#708238;border:1px solid #708238;border-radius:8px;text-decoration:none;">WhatsApp us at +7419737390</a>
+        <span style="display:inline-block;vertical-align:middle;">Herenative &copy; 2025</span>
+      </div>
+    </div>
 
     <script>
+        // 移动端：根据顶部栏实际高度，将大图与顶部栏的距离精确设置为10px
+        (function(){
+            function adjustTopPadding(){
+                if (window.innerWidth <= 768) {
+                    var header = document.querySelector('header');
+                    var productDetail = document.querySelector('.product-detail');
+                    if (header && productDetail) {
+                        productDetail.style.paddingTop = (header.offsetHeight + 0) + 'px';
+                    }
+                }
+            }
+            window.addEventListener('DOMContentLoaded', adjustTopPadding);
+            window.addEventListener('resize', adjustTopPadding);
+        })();
+
         // 语言包
         const translations = {
             en: {
-                "GEN-Z CHENGDU PLAYBOOK: 24HRS OF VIBES": "Gen-Z Chengdu Playbook: 12hrs of Vibes",
+                "GEN-Z CHENGDU PLAYBOOK: 24HRS OF VIBES": "Gen-Z Chengdu Playbook: 9hrs of Vibes",
                 "Where Ancient Teahouses Meet Cyberpunk Dreams": "Where Ancient Teahouses Meet Cyberpunk Dreams",
                 "Book Now": "Book Now",
                 "Free Cancellation": "Free Cancellation",
@@ -1005,7 +1150,85 @@
                     mainImage.alt = this.alt;
                 });
             });
+            
+            // 豆包搜索功能
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        const query = this.value.trim();
+                        if (query) {
+                            searchWithDouBao(query);
+                        }
+                    }
+                });
+                
+                // 搜索图标点击事件
+                const searchIcon = document.querySelector('.search-icon');
+                if (searchIcon) {
+                    searchIcon.addEventListener('click', function() {
+                        const query = searchInput.value.trim();
+                        if (query) {
+                            searchWithDouBao(query);
+                        }
+                    });
+                }
+            }
         });
+        
+        // 豆包搜索函数
+        function searchWithDouBao(query) {
+            // 豆包搜索API调用
+            const searchUrl = `https://www.doubao.com/search?q=${encodeURIComponent(query)}`;
+            window.open(searchUrl, '_blank');
+        }
+    </script>
+    <script>
+      // 移动端左右滑动切换小图（同步更新主图与缩略图active）
+      (function(){
+        var startX = 0, deltaX = 0;
+        var mainImg = document.querySelector('.main-image');
+        var thumbs = Array.from(document.querySelectorAll('.thumbnail'));
+        if (!mainImg || !thumbs.length) return;
+        function showByIndex(idx){
+          idx = (idx + thumbs.length) % thumbs.length;
+          thumbs.forEach(t => t.classList.remove('active'));
+          thumbs[idx].classList.add('active');
+          mainImg.src = thumbs[idx].src;
+          mainImg.alt = thumbs[idx].alt;
+          current = idx;
+        }
+        var current = Math.max(0, thumbs.findIndex(t=>t.classList.contains('active')));
+        if (current < 0) current = 0;
+        mainImg.addEventListener('touchstart', function(e){
+          if (!e.touches || !e.touches.length) return;
+          startX = e.touches[0].clientX; deltaX = 0;
+        }, {passive:true});
+        mainImg.addEventListener('touchmove', function(e){
+          if (!e.touches || !e.touches.length) return;
+          deltaX = e.touches[0].clientX - startX;
+        }, {passive:true});
+        mainImg.addEventListener('touchend', function(){
+          if (Math.abs(deltaX) < 30) return; // 滑动阈值
+          if (deltaX < 0) showByIndex(current + 1); else showByIndex(current - 1);
+        });
+      })();
+    </script>
+    <script>
+      function contactWhatsApp(e){
+        try {
+          const phone = '+7419737390';
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(phone);
+          } else {
+            const ta = document.createElement('textarea');
+            ta.value = phone; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+          }
+        } catch(err) {}
+        window.open('https://wa.me/7419737390','_blank');
+        e.preventDefault();
+        return false;
+      }
     </script>
 </body>
 </html> 

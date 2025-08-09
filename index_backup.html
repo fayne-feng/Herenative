@@ -3,29 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HereNative - 探索真实的中国</title>
+    <title>HereNative - 探索真实的中�?/title>
     <link rel="icon" type="image/x-icon" href="images/商标.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1542662565-7e4b66bae529?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80">
-    <!-- 协议与域名规范化（单次无闪烁跳转） -->
+    
+    <!-- HTTPS强制重定�?-->
     <script>
-      (function(){
-        var host = location.hostname;
-        var isLocal = host === 'localhost' || host === '127.0.0.1' || host.indexOf('192.168.')===0 || host.indexOf('10.')===0 || host.indexOf('172.')===0;
-        if (location.protocol === 'http:' && !isLocal) {
-          location.replace(location.href.replace('http:', 'https:'));
-          return;
+        // 检查当前协议，如果不是HTTPS则重定向
+        if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            window.location.href = window.location.href.replace('http:', 'https:');
         }
-        if (host === 'herenative.com') {
-          location.replace(location.href.replace('://herenative.com', '://www.herenative.com'));
-        }
-      })();
     </script>
     
+    <!-- SSL证书问题修复 -->
+    <script>
+        // 检查SSL证书问题并重定向
+        (function() {
+            const currentHost = window.location.hostname;
+            const currentProtocol = window.location.protocol;
+            
+            // 如果是herenative.com且不是HTTPS，重定向到www版本
+            if (currentHost === 'herenative.com' && currentProtocol === 'https:') {
+                // 检查是否有SSL证书问题
+                if (window.location.href.includes('herenative.com') && !window.location.href.includes('www.')) {
+                    // 重定向到www版本，这个通常有正确的SSL证书
+                    const newUrl = window.location.href.replace('https://herenative.com', 'https://www.herenative.com');
+                    window.location.href = newUrl;
+                }
+            }
+            
+            // 强制HTTPS重定向（排除本地开发环境）
+            const isLocalhost = window.location.hostname === 'localhost' || 
+                               window.location.hostname === '127.0.0.1' ||
+                               window.location.hostname.includes('192.168.') ||
+                               window.location.hostname.includes('10.') ||
+                               window.location.hostname.includes('172.');
+            
+            if (window.location.protocol === 'http:' && !isLocalhost) {
+                const httpsUrl = window.location.href.replace('http:', 'https:');
+                window.location.replace(httpsUrl);
+                return;
+            }
+            
+            // 确保所有相对链接都使用当前协议
+            const currentHost2 = window.location.host;
+            
+            // 重写所有相对链接为绝对链接
+            document.addEventListener('DOMContentLoaded', function() {
+                const links = document.querySelectorAll('a[href^="./"], a[href^="/"], a[href^="?"]');
+                links.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href && !href.startsWith('http') && !href.startsWith('#')) {
+                        link.href = currentProtocol + '//' + currentHost2 + href;
+                    }
+                });
+            });
+            
+            // 重写所有相对图片链�?
+            document.addEventListener('DOMContentLoaded', function() {
+                const images = document.querySelectorAll('img[src^="./"], img[src^="/"]');
+                images.forEach(img => {
+                    const src = img.getAttribute('src');
+                    if (src && !src.startsWith('http')) {
+                        img.src = currentProtocol + '//' + currentHost2 + src;
+                    }
+                });
+            });
+        })();
+    </script>
     
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -34,10 +81,10 @@
         }
 
         :root {
-            --primary: #708238; /* 橄榄绿 */
+            --primary: #708238; /* 橄榄�?*/
             --primary-dark: #55612b; /* 深橄榄绿 */
             --secondary: #bfc7b1; /* 浅灰带绿 */
-            --light: #f5f6f4; /* 浅灰/白 */
+            --light: #f5f6f4; /* 浅灰/�?*/
             --dark: #222222;
             --gray: #8a8f8a; /* 中性灰 */
             --border: #e0e2dd; /* 浅灰边框 */
@@ -68,7 +115,7 @@
             left: 0;
             width: 100%;
             background-color: white;
-            box-shadow: 0 2px 10px rgba(112, 130, 56, 0.08); /* 橄榄绿阴影 */
+            box-shadow: 0 2px 10px rgba(112, 130, 56, 0.08); /* 橄榄绿阴�?*/
             z-index: 1000;
             padding: 11.5px 0;
         }
@@ -76,11 +123,6 @@
         .navbar {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-        }
-        
-        .navbar-left {
-            display: flex;
             align-items: center;
         }
 
@@ -98,8 +140,7 @@
         }
 
         .nav-links {
-            display: flex;
-            list-style: none;
+            display: none;
         }
 
         .nav-links li {
@@ -128,7 +169,7 @@
             cursor: default;
         }
 
-        /* 搜索栏样式 */
+        /* 搜索栏样�?*/
         .search-container {
             flex: 1;
             max-width: 400px;
@@ -161,8 +202,9 @@
             right: 12px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--gray);
+            color: #4CAF50;
             font-size: 14px;
+            cursor: pointer;
         }
 
         .nav-buttons {
@@ -284,7 +326,7 @@
             margin-bottom: 18px;
         }
 
-        /* 目的地卡片 */
+        /* 目的地卡�?*/
         .destinations {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -455,20 +497,30 @@
             font-size: 14px;
         }
 
-        /* 响应式设置 */
+        /* 响应式设�?*/
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
             
             .search-container {
-                max-width: 200px;
-                margin: 0 10px;
+                max-width: 150px;
+                margin: 0 8px;
             }
             
             .search-bar {
                 font-size: 12px;
                 padding: 6px 12px;
+            }
+            
+            .search-bar::placeholder {
+                content: "search";
+            }
+            
+            .btn-translate {
+                min-width: 60px;
+                padding: 8px 10px;
+                font-size: 12px;
             }
             
             .logo {
@@ -506,7 +558,7 @@
                 padding: 60px 0;
             }
             
-            /* 手机端商品卡片样式 */
+            /* 手机端商品卡片样�?*/
             .product-cards-container {
                 flex-direction: column;
                 align-items: center;
@@ -586,7 +638,7 @@
                 width: 100%;
             }
             
-            /* 轮播图按钮调整 */
+            /* 轮播图按钮调�?*/
             .carousel-btn {
                 width: 40px;
                 height: 40px;
@@ -687,8 +739,6 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            content-visibility: auto;
-            contain-intrinsic-size: 900px 506px;
         }
         .carousel-caption {
             position: absolute;
@@ -778,31 +828,18 @@
                 padding-left: 0;
                 padding-right: 0;
             }
-            /* 手机端 About Us 文案优化对齐与留白 */
-            .about-text { padding-left: 16px; padding-right: 16px; }
-            .about-text p {
-              text-align: justify;
-              text-justify: inter-word;
-              line-height: 1.9;
-              font-size: 15px;
-              margin: 0;
-              hyphens: auto;
-              word-break: break-word;
-            }
         }
         .caption-title {
             font-size: 18px;
             font-weight: 600;
-            margin-bottom: 1px; /* 缩小标题与副标题间距 */
-            line-height: 1.2;
+            margin-bottom: 2px;
         }
         .caption-desc {
             font-size: 11px;
             font-weight: 400;
             color: #e0e2dd;
             margin-bottom: 0;
-            margin-top: 0; /* 缩小标题与副标题间距 */
-            line-height: 1.2;
+            margin-top: 2px;
             display: block;
         }
         .city-select-wrapper {
@@ -860,44 +897,6 @@
         .btn-translate:hover {
             background: var(--secondary);
         }
-        .btn-translate i {
-            color: var(--primary);
-        }
-        
-        .btn-translate span {
-            color: var(--primary);
-            font-weight: 500;
-            font-size: 14px;
-        }
-        
-        #translate-menu {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 48px;
-            background: #fff;
-            border: 1px solid #e0e2dd;
-            border-radius: 8px;
-            box-shadow: 0 4px 16px rgba(112,130,56,0.15);
-            z-index: 10000;
-            min-width: 140px;
-        }
-        
-        .translate-option {
-            padding: 12px 24px;
-            cursor: pointer;
-            border-bottom: 1px solid #f0f0f0;
-            transition: background 0.2s;
-        }
-        
-        .translate-option:hover {
-            background: #f8f9fa;
-        }
-        
-        .translate-option:last-child {
-            border-bottom: none;
-        }
-        
         .nav-buttons a.btn-outline {
             margin-right: 16px;
         }
@@ -936,15 +935,15 @@
         .caption-center {
           width: 100%;
           text-align: center;
-          margin-bottom: 14px; /* 增大与按钮间距 */
+          margin-bottom: 8px;
         }
         .panda-join-btn {
           position: absolute;
           left: 50%;
           transform: translateX(-50%);
           bottom: 8px;
-          font-size: 12px; /* 放大一点点 */
-          padding: 6px 16px; /* 放大一点点 */
+          font-size: 11px;
+          padding: 4px 14px;
           white-space: nowrap;
           z-index: 3;
         }
@@ -954,115 +953,67 @@
             min-height: 70px;
           }
           .caption-center {
-            margin-bottom: 10px; /* 移动端适度增大间距 */
+            margin-bottom: 6px;
           }
           .panda-join-btn {
             bottom: 6px;
-            font-size: 11px; /* 移动端微增 */
-            padding: 4px 12px; /* 移动端微增 */
+            font-size: 10px;
+            padding: 3px 10px;
           }
         }
-        /* 底部横条（移动端行距/换行） */
-        .bottom-bar { display:flex; align-items:center; justify-content:center; gap:6px; }
-        @media (max-width: 600px) {
-          .bottom-bar { flex-direction: column; gap: 6px; }
-          .bottom-bar span { line-height: 1.9; }
-        }
-        /* 桌面端：收紧header容器左右留白，让Logo更靠左、翻译按钮更靠右 */
-        @media (min-width: 769px) {
-          header .container { max-width: 100%; padding-left: 12px; padding-right: 12px; }
-          .navbar { padding-left: 0; padding-right: 0; }
-          .nav-buttons { margin-left: auto; }
+        .search-bar::placeholder {
+            content: "search";
         }
         
-        /* 电脑端显示比例放大到110% */
-        @media (min-width: 769px) {
-          body {
-            transform: scale(1.1);
-            transform-origin: top center;
-            width: 90.91%; /* 100% / 1.1 = 90.91% */
-            margin: 0 auto;
-          }
-          
-          /* 调整容器宽度以适应缩放 */
-          .container {
-            max-width: 1164px; /* 1280px / 1.1 ≈ 1164px */
-          }
-          
-          /* 调整轮播图区域宽度 */
-          .carousel-section {
-            max-width: 818px; /* 900px / 1.1 ≈ 818px */
-          }
-          
-          /* 调整活动轮播图宽度 */
-          .activity-carousel {
-            max-width: 818px; /* 900px / 1.1 ≈ 818px */
-          }
-          
-          /* 调整产品卡片容器宽度 */
-          .section {
-            max-width: 1091px; /* 1200px / 1.1 ≈ 1091px */
-          }
-          
-          /* 顶部栏布局调整 - 与genz-chengdu-playbook.html保持一致 */
-          header .container {
-            max-width: 1164px;
-            padding-left: 24px;
-            padding-right: 24px;
-          }
-          
-          .navbar {
-            padding-left: 0;
-            padding-right: 0;
-          }
-          
-          .nav-buttons {
-            margin-left: auto;
-          }
+        .search-container input::placeholder {
+            content: "search" !important;
+        }
+        
+        .search-container input[placeholder*="搜索"] {
+            content: "search";
         }
     </style>
 </head>
 <body>
-    <!-- 顶部导航栏 -->
+    <!-- 1. 顶部导航栏升�?-->
     <header>
-        <div class="container">
-            <nav class="navbar">
-                <div class="navbar-left">
-                    <a href="index.html" class="logo">
-                        <img src="images/商标.png" alt="商标" style="height:32px;width:32px;margin-right:8px;vertical-align:middle;">
-                        HereNative
-                    </a>
-                </div>
-                <ul class="nav-links">
-                    <li>
-                        <span id="city-select-btn">Chengdu Trips</span>
-                    </li>
-                    <li><span>Local One Day</span></li>
-                    <li><span>In-depth Experience</span></li>
-                </ul>
-                <div class="nav-buttons">
-                    <button class="btn btn-outline btn-translate" id="translate-btn">
-                        <i class="fas fa-globe"></i>
-                        <span>EN</span>
-                    </button>
-                    <div id="translate-menu">
-                        <div class="translate-option" data-lang="en">English</div>
-                        <div class="translate-option" data-lang="zh">中文</div>
-                        <div class="translate-option" data-lang="ko">한국어</div>
-                        <div class="translate-option" data-lang="ja">日本語</div>
-                        <div class="translate-option" data-lang="th">ไทย</div>
-                        <div class="translate-option" data-lang="ms">Bahasa Melayu</div>
-                        <div class="translate-option" data-lang="vi">Tiếng Việt</div>
-                    </div>
-                </div>
-            </nav>
-        </div>
+      <div class="container">
+        <nav class="navbar">
+          <a href="index.html" class="logo">
+            <img src="images/商标.png" alt="商标" style="height:32px;width:32px;margin-right:8px;vertical-align:middle;">
+            Herenative
+          </a>
+          
+          <ul class="nav-links">
+            <li>
+              <span id="city-select-btn">Chengdu Trips</span>
+            </li>
+            <li><span>Local One Day</span></li>
+            <li><span>In-depth Experience</span></li>
+          </ul>
+          <div class="nav-buttons" style="position:relative;">
+            <button class="btn btn-outline btn-translate" id="translate-btn" style="display:flex;align-items:center;gap:6px;padding:10px 12px;justify-content:center;">
+              <img src="images/翻译图标.png" alt="翻译" style="height:20px;width:20px;vertical-align:middle;" />
+              <span style="color:#708238;font-weight:500;font-size:14px;">EN</span>
+            </button>
+            <div id="translate-menu" style="display:none;position:absolute;right:0;top:48px;background:#fff;border:1px solid #e0e2dd;border-radius:8px;box-shadow:0 4px 16px rgba(112,130,56,0.15);z-index:10000;min-width:140px;">
+              <div class="translate-option" data-lang="en" style="padding:12px 24px;cursor:pointer;border-bottom:1px solid #f0f0f0;transition:background 0.2s;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='#fff'">English</div>
+              <div class="translate-option" data-lang="zh" style="padding:12px 24px;cursor:pointer;border-bottom:1px solid #f0f0f0;transition:background 0.2s;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='#fff'">中文</div>
+              <div class="translate-option" data-lang="ko" style="padding:12px 24px;cursor:pointer;border-bottom:1px solid #f0f0f0;transition:background 0.2s;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='#fff'">한국�?/div>
+              <div class="translate-option" data-lang="ja" style="padding:12px 24px;cursor:pointer;border-bottom:1px solid #f0f0f0;transition:background 0.2s;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='#fff'">日本�?/div>
+              <div class="translate-option" data-lang="th" style="padding:12px 24px;cursor:pointer;border-bottom:1px solid #f0f0f0;transition:background 0.2s;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='#fff'">ไท�?/div>
+              <div class="translate-option" data-lang="ms" style="padding:12px 24px;cursor:pointer;border-bottom:1px solid #f0f0f0;transition:background 0.2s;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='#fff'">Bahasa Melayu</div>
+              <div class="translate-option" data-lang="vi" style="padding:12px 24px;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='#fff'">Tiếng Việt</div>
+            </div>
+          </div>
+        </nav>
+      </div>
     </header>
-    <!-- 3. Chengdu主标题 - 删除整个板块 -->
+    <!-- 3. Chengdu主标�?- 删除整个板块 -->
     <!-- <div style="padding-top:90px;text-align:center;">
       <h1 style="font-size:48px;font-weight:800;color:#708238;letter-spacing:2px;">Chengdu</h1>
     </div> -->
-    <!-- 4. 活动轮播图升级 - 修改Chengdu文字样式 -->
+    <!-- 4. 活动轮播图升�?- 修改Chengdu文字样式 -->
     <section class="carousel-section">
       <div class="activity-carousel" style="position:relative;">
         <div style="position:absolute;left:12px;top:8px;z-index:10;">
@@ -1070,7 +1021,7 @@
         </div>
         <div class="carousel-track">
           <div class="carousel-item active">
-            <img src="images/川剧喷火.jpg" alt="Face-Changing & Fire-Breathing" loading="eager" decoding="async">
+            <img src="images/川剧喷火.jpg" alt="Face-Changing & Fire-Breathing">
             <div class="carousel-caption panda-caption">
               <div class="caption-center">
                 <div class="caption-title">Face-Changing & Fire-Breathing</div>
@@ -1080,7 +1031,7 @@
             </div>
           </div>
           <div class="carousel-item">
-            <img src="images/夜游锦江.jpg" alt="Night Cruise on Jinjiang River" loading="lazy" decoding="async">
+            <img src="images/夜游锦江.jpg" alt="Night Cruise on Jinjiang River">
             <div class="carousel-caption panda-caption">
               <div class="caption-center">
                 <div class="caption-title">Night Cruise on Jinjiang River</div>
@@ -1090,7 +1041,7 @@
             </div>
           </div>
           <div class="carousel-item">
-            <img src="images/成都夜市.jpg" alt="Fuqin Night Market" loading="lazy" decoding="async">
+            <img src="images/成都夜市.jpg" alt="Fuqin Night Market">
             <div class="carousel-caption panda-caption">
               <div class="caption-center">
                 <div class="caption-title">Fuqin Night Market</div>
@@ -1100,17 +1051,17 @@
             </div>
           </div>
           <div class="carousel-item">
-            <img src="images/熊猫1.png" alt="Chengdu All-Day Packed" loading="lazy" decoding="async" style="object-position: center 25%;">
+            <img src="images/熊猫1.png" alt="Chengdu All-Day Packed">
             <div class="carousel-caption panda-caption">
               <div class="caption-center">
                 <div class="caption-title">Discover the Magic of Giant Pandas!</div>
-                <div class="caption-desc">Sichuan Panda Base – Where Wonders Come to Life!</div>
+                <div class="caption-desc">Sichuan Panda Base �?Where Wonders Come to Life!</div>
               </div>
               <a href="chengdu-all-day-packed.html" class="btn btn-primary panda-join-btn join-btn-unify">Join Now</a>
             </div>
           </div>
           <div class="carousel-item">
-            <img src="images/火锅.jpg" alt="Hotpot Heaven" loading="lazy" decoding="async">
+            <img src="images/火锅.jpg" alt="Hotpot Heaven">
             <div class="carousel-caption panda-caption">
               <div class="caption-center">
                 <div class="caption-title">Hotpot Heaven</div>
@@ -1120,7 +1071,7 @@
             </div>
           </div>
           <div class="carousel-item">
-            <img src="images/宽窄巷子.jpg" alt="Kuanzhai Alley" loading="lazy" decoding="async">
+            <img src="images/宽窄巷子.jpg" alt="Kuanzhai Alley">
             <div class="carousel-caption panda-caption">
               <div class="caption-center">
                 <div class="caption-title">Kuanzhai Alley</div>
@@ -1130,7 +1081,7 @@
             </div>
           </div>
           <div class="carousel-item">
-            <img src="images/太古里.jpg" alt="Taikoo Li Chengdu" loading="lazy" decoding="async">
+            <img src="images/太古�?jpg" alt="Taikoo Li Chengdu">
             <div class="carousel-caption panda-caption">
               <div class="caption-center">
                 <div class="caption-title">Taikoo Li Chengdu</div>
@@ -1140,7 +1091,7 @@
             </div>
           </div>
           <div class="carousel-item">
-            <img src="images/高空酒吧.jpg" alt="Sky-High Sips" loading="lazy" decoding="async">
+            <img src="images/高空酒吧.jpg" alt="Sky-High Sips">
             <div class="carousel-caption panda-caption">
               <div class="caption-center">
                 <div class="caption-title">Sky-High Sips</div>
@@ -1156,12 +1107,10 @@
     </section>
     <!-- 5. Local一日游拼接图和描述 -->
     <section class="section" style="background:#fff;border-radius:18px;max-width:1200px;margin:48px auto 0 auto;box-shadow:0 4px 24px rgba(112,130,56,0.13);padding:24px;">
-      <h2 class="section-title" style="color:#708238;text-align:center;margin-bottom:12px;">Day Local</h2>
-      <div class="product-cards-container" style="display:flex;flex-direction:column;
-      
-      gap:24px;align-items:center;">
+      <h2 class="section-title" style="color:#708238;text-align:center;margin-bottom:32px;">Day Local</h2>
+      <div class="product-cards-container" style="display:flex;flex-direction:column;gap:24px;align-items:center;">
         <div class="product-card" style="width:100%;max-width:600px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(112,130,56,0.10);padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;">
-            <img src="images/熊猫1.png" loading="lazy" decoding="async" style="width:100%;height:250px;object-fit:cover;object-position:center 20%;border-radius:8px;margin-bottom:16px;">
+          <img src="images/熊猫1.png" style="width:100%;height:250px;object-fit:cover;border-radius:8px;margin-bottom:16px;">
           <a href="chengdu-all-day-packed.html" class="btn btn-primary section-btn" style="margin-bottom:16px;min-width:150px;padding:12px 32px;font-size:16px;text-decoration:none;text-align:center;display:block;" data-i18n="Experience now">Experience now</a>
           <div style="text-align:center;">
             <div style="font-size:20px;font-weight:600;color:#38441b;margin:0 0 8px 0;" data-i18n="Chengdu All-Day Packed">Chengdu All-Day Packed</div>
@@ -1169,72 +1118,39 @@
           </div>
         </div>
         <div class="product-card" style="width:100%;max-width:600px;background:#fff;border-radius:14px;box-shadow:0 2px 8px rgba(112,130,56,0.10);padding:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;">
-            <img src="images/太古里.jpg" loading="lazy" decoding="async" style="width:100%;height:250px;object-fit:cover;border-radius:8px;margin-bottom:16px;">
+          <img src="images/太古�?jpg" style="width:100%;height:250px;object-fit:cover;border-radius:8px;margin-bottom:16px;">
           <a href="genz-chengdu-playbook.html" class="btn btn-primary section-btn" style="margin-bottom:16px;min-width:150px;padding:12px 32px;font-size:16px;text-decoration:none;text-align:center;display:block;" data-i18n="Experience now">Experience now</a>
           <div style="text-align:center;">
             <div style="font-size:20px;font-weight:600;color:#38441b;margin:0 0 8px 0;" data-i18n="Gen-Z Chengdu Playbook: 9hrs of Vibes">Gen-Z Chengdu Playbook: 9hrs of Vibes</div>
-            <div style="font-size:16px;color:#708238;text-align:center;">Private ride, Hotpot, Massage, Buffet, Top bar, Night Culture.</div>
-            <div style="font-size:16px;color:#708238;text-align:center;">One day to live your best Chengdu life.</div>
+            <div style="font-size:16px;color:#708238;text-align:center;" data-i18n="Private ride, Hotpot, Massage,Buffet,Top bar,Night Culture. One day to live your best Chengdu life.">Private ride, Hotpot, Massage,Buffet,Top bar,Night Culture. One day to live your best Chengdu life.</div>
           </div>
         </div>
       </div>
     </section>
-    <!-- 24H Chengdu Service 板块（移动至底部栏上方） -->
-    <section class="section" style="background:#fff;border-radius:18px;max-width:1200px;margin:20px auto 0 auto;box-shadow:0 4px 24px rgba(112,130,56,0.13);padding:28px 24px;">
-      <h2 class="section-title" style="color:#708238;text-align:center;margin-bottom:8px;">24H Chengdu Service</h2>
-      <p style="text-align:center;color:#38441b;margin-bottom:8px;font-weight:500;">Free 24/7 Response & Help by Locals</p>
-      <p style="text-align:center;color:#708238;margin-top:0;margin-bottom:22px;">Reach out to us on WhatsApp or WeChat</p>
-      <div style="display:flex;justify-content:center;align-items:center;gap:40px;flex-wrap:wrap;">
-        <div style="text-align:center;">
-          <div style="width:150px;height:150px;border:1px solid #e0e2dd;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#f9faf7;overflow:hidden;">
-            <img src="images/WhatsApp.png" alt="WhatsApp QR" loading="lazy" style="max-width:100%;max-height:100%;" onerror="this.onerror=null;this.src='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https%3A%2F%2Fwa.me%2F7419737390'">
-          </div>
-          <div style="margin-top:8px;color:#38441b;font-weight:600;">WhatsApp</div>
-        </div>
-        <div style="text-align:center;">
-          <div style="width:150px;height:150px;border:1px solid #e0e2dd;border-radius:12px;display:flex;align-items:center;justify-content:center;background:#f9faf7;overflow:hidden;">
-            <img src="images/Wechat.png" alt="WeChat QR" loading="lazy" style="max-width:100%;max-height:100%;" onerror="this.onerror=null;this.src='images/商标.png'">
-          </div>
-          <div style="margin-top:8px;color:#38441b;font-weight:600;">WeChat</div>
-        </div>
-      </div>
-    </section>
-    <!-- About Us 板块（网页最下方，底部栏上方） -->
-    <section class="section" style="background:#fff;border-radius:18px;max-width:1200px;margin:20px auto 40px auto;box-shadow:0 4px 24px rgba(112,130,56,0.13);padding:28px 24px;">
-      <h2 class="section-title" style="color:#708238;text-align:center;margin-bottom:14px;">About Us</h2>
-      <div class="about-text" style="max-width:900px;margin:0 auto;color:#38441b;line-height:1.8;font-size:16px;">
-        <p style="text-align:left;">
-          Hi there! We are a group of locals who've called this city home for years. We believe that the best way to experience a city is through connections — so we're all about creating a space where you can ask any questions that come to mind, share your adventures, and build real friendships. We can't wait to welcome you like family. Let's explore, laugh, and make this city feel less "tourist" and more "you".
-        </p>
-      </div>
-    </section>
-    <!-- 7. 底部栏保留 -->
+    <!-- 7. 底部栏保�?-->
     <div style="width:100%;background:#38441b;color:white;text-align:center;padding:18px 0;font-size:15px;letter-spacing:1px;margin-top:60px;">
-      <div class="bottom-bar">
-        <a href="https://wa.me/7419737390" target="_blank" onclick="return contactWhatsApp(event)" class="btn btn-translate" style="display:inline-flex;vertical-align:middle;margin-left:0;padding:6px 14px;background:#ffffff;color:#708238;border:1px solid #708238;border-radius:8px;text-decoration:none;">WhatsApp us at +7419737390</a>
-        <span style="display:inline-block;vertical-align:middle;">Herenative &copy; 2025</span>
-      </div>
+      <span style="display:inline-block;vertical-align:middle;">Herenative &copy; 2025</span>
+      <span style="display:inline-block;vertical-align:middle;margin-left:12px;">WhatsApp us at +7419737390</span>
     </div>
     <!-- 8. 脚本升级：轮播图、弹窗、语言切换 -->
     <script>
-    // 轮播图切换（延迟初始化，避免首屏阻塞）
+    // 轮播图切�?
     let carouselIndex = 0;
-    let carouselItems = [];
+    const carouselItems = document.querySelectorAll('.carousel-item');
     function showCarousel(idx) {
-      carouselItems.forEach((item, i) => item.classList.toggle('active', i === idx));
+      carouselItems.forEach((item, i) => {
+        item.classList.toggle('active', i === idx);
+      });
     }
     function switchCarousel(dir) {
       carouselIndex = (carouselIndex + dir + carouselItems.length) % carouselItems.length;
       showCarousel(carouselIndex);
     }
-    window.addEventListener('load', function(){
-      carouselItems = Array.from(document.querySelectorAll('.carousel-item'));
-      showCarousel(carouselIndex);
-    });
+    showCarousel(carouselIndex);
     
-    // 等待DOM加载完成后再执行语言选择器相关代码
+    // 等待DOM加载完成后再执行语言选择器相关代�?
     document.addEventListener('DOMContentLoaded', function() {
-      // 语言选择器
+      // 语言选择�?
       const translateBtn = document.getElementById('translate-btn');
       const translateMenu = document.getElementById('translate-menu');
       if (translateBtn && translateMenu) {
@@ -1255,59 +1171,50 @@
       });
       
       // 豆包搜索功能
-      // 已移除搜索功能
-
-      // 商品卡片可点击：跳转到对应的 Experience now 链接
-      document.querySelectorAll('.product-card').forEach(function(card){
-        const targetBtn = card.querySelector('a.section-btn');
-        if (targetBtn) {
-          card.style.cursor = 'pointer';
-          card.addEventListener('click', function(e){
-            if (e.target.closest('a')) return; // 避免覆盖按钮本身点击
-            window.location.href = targetBtn.href;
+      const searchInput = document.getElementById('search-input');
+      if (searchInput) {
+        // 手机端修改placeholder
+        if (window.innerWidth <= 768) {
+          searchInput.placeholder = "search";
+        }
+        
+        searchInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            const query = this.value.trim();
+            if (query) {
+              // 使用豆包搜索API
+              searchWithDouBao(query);
+            }
+          }
+        });
+        
+        // 搜索图标点击事件
+        const searchIcon = document.querySelector('.search-icon');
+        if (searchIcon) {
+          searchIcon.addEventListener('click', function() {
+            const query = searchInput.value.trim();
+            if (query) {
+              searchWithDouBao(query);
+            }
           });
         }
-      });
-
-      // 轮播图片可点击：跳转到对应的 Join Now 链接
-      document.querySelectorAll('.carousel-item').forEach(function(item){
-        const joinBtn = item.querySelector('a.panda-join-btn');
-        const img = item.querySelector('img');
-        if (joinBtn && img) {
-          img.style.cursor = 'pointer';
-          img.addEventListener('click', function(){
-            window.location.href = joinBtn.href;
-          });
-        }
-      });
+      }
     });
     
     // 豆包搜索函数
-    // 已移除搜索功能
-    // 点击WhatsApp按钮：复制号码并跳转
-    function contactWhatsApp(e){
-      try {
-        const phone = '+7419737390';
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(phone);
-        } else {
-          const ta = document.createElement('textarea');
-          ta.value = phone; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
-        }
-      } catch(err) {}
-      // 跳转到WhatsApp添加好友
-      window.open('https://wa.me/7419737390','_blank');
-      e.preventDefault();
-      return false;
+    function searchWithDouBao(query) {
+      // 豆包搜索API调用
+      const searchUrl = `https://www.doubao.com/search?q=${encodeURIComponent(query)}`;
+      window.open(searchUrl, '_blank');
     }
     </script>
 </body>
 <script>
-// 语言包（与panda-detail.html一致，需补全所有页面所有文字的翻译）
+// 语言包（与panda-detail.html一致，需补全所有页面所有文字的翻译�?
 const translations = {
     en: {
-        "探索真正的中国": "Explore the Real China",
-        "当地人，带您体验地道的中国生活": "Locals guide you to authentic Chinese life",
+        "探索真正的中�?: "Explore the Real China",
+        "当地人，带您体验地道的中国生�?: "Locals guide you to authentic Chinese life",
         "注册": "Sign Up",
         "登录": "Login",
         "翻译": "Translate",
@@ -1315,7 +1222,7 @@ const translations = {
         "请选择城市": "Please select a city",
         "成都": "Chengdu",
         "重庆": "Chongqing",
-        "本地一日": "Local One Day",
+        "本地一�?: "Local One Day",
         "深度体验": "In-depth Experience",
         "搜索": "Search",
         "你想去哪个城市？": "Which city do you want to visit?",
@@ -1333,18 +1240,18 @@ const translations = {
         "城市": "City Day",
         "放松": "Relaxation Day",
         "体验地道本地生活，深入城市日常，适合时间有限的你": "Experience authentic local life, dive into city routines, perfect for those with limited time.",
-        "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好者": "Explore culture and nature in depth, gain richer travel memories, perfect for enthusiasts.",
-        "大熊猫互动": "Panda Interaction",
-        "与国宝大熊猫亲密互动，感受自然与生命的奇妙": "Get close to pandas and feel the wonder of nature and life.",
+        "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好�?: "Explore culture and nature in depth, gain richer travel memories, perfect for enthusiasts.",
+        "大熊猫互�?: "Panda Interaction",
+        "与国宝大熊猫亲密互动，感受自然与生命的奇�?: "Get close to pandas and feel the wonder of nature and life.",
         "蜀宴赋": "Shu Banquet",
         "品味川蜀美食盛宴，体验地道巴蜀文化": "Taste Sichuan cuisine and experience authentic Bashu culture.",
         "夜游锦江": "Night Tour of Jinjiang",
         "夜色下泛舟锦江，领略成都独特夜景风情": "Boat on Jinjiang at night and enjoy Chengdu's unique night view.",
         "服务": "Services",
-        "本地一日": "Local One Day",
+        "本地一�?: "Local One Day",
         "深度体验": "In-depth Experience",
         "体验地道本地生活，深入城市日常，适合时间有限的你": "Experience authentic local life, dive into city routines, perfect for those with limited time.",
-        "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好者": "Explore culture and nature in depth, gain richer travel memories, perfect for enthusiasts.",
+        "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好�?: "Explore culture and nature in depth, gain richer travel memories, perfect for enthusiasts.",
         "Login/Sign Up": "Login/Sign Up",
         "Chengdu All-Day Packed": "Chengdu All-Day Packed",
         "Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise": "Pandas, Temple, Hot pot, Sichuan Opera, Night Market & Night Cruise",
@@ -1356,69 +1263,69 @@ const translations = {
         "Login/Sign Up": "ログイン/登録",
         "登录": "ログイン",
         "注册": "登録",
-        "邮箱": "メールアドレス",
-        "密码": "パスワード",
+        "邮箱": "メールアドレ�?,
+        "密码": "パスワー�?,
         "手机号码": "携帯番号",
-        "请设置密码": "パスワードを設定してください",
-        "请再次输入密码": "もう一度パスワードを入力してください",
-        "请输入邮箱": "メールアドレスを入力してください",
-        "请输入密码": "パスワードを入力してください",
-        "请输入手机号码": "携帯番号を入力してください",
-        "Join now": "今すぐ参加",
-        "Experience now": "今すぐ体験",
+        "请设置密�?: "パスワードを設定してください",
+        "请再次输入密�?: "もう一度パスワードを入力してくださ�?,
+        "请输入邮�?: "メールアドレスを入力してください",
+        "请输入密�?: "パスワードを入力してください",
+        "请输入手机号�?: "携帯番号を入力してくださ�?,
+        "Join now": "今すぐ参�?,
+        "Experience now": "今すぐ体�?,
         "Panda (Morning)": "パンダ（午前）",
-        "Visit Chengdu Panda Base and meet adorable pandas": "成都パンダ基地を訪れ、かわいいパンダに会いましょう",
-        "Imperial Banquet (Lunch)": "蜀宴賦（ランチ）",
+        "Visit Chengdu Panda Base and meet adorable pandas": "成都パンダ基地を訪れ、かわいいパンダに会いましょ�?,
+        "Imperial Banquet (Lunch)": "蜀宴賦（ランチ�?,
         "Enjoy exquisite Sichuan cuisine and cultural show": "精巧な四川料理と文化ショーを楽しむ",
         "Sichuan Opera (Afternoon)": "川劇（午後）",
         "Face-changing, fire-spitting, and more": "変面、火吹きなどのパフォーマンス",
-        "Night River Cruise": "夜錦江クルーズ",
+        "Night River Cruise": "夜錦江クルー�?,
         "Boat on Jinjiang and enjoy the night view": "錦江で夜景を楽しむ",
         "City Service": "Day Local",
         "City Activity": "Day Local",
         "Imperial Banquet": "蜀宴賦",
         "The cultural performances and exquisite Sichuan cuisine of each dynasty in Chengdu": "成都各時代の文化公演と精巧な四川料理",
-        "Panda Feeding (Chengdu Base)": "パンダ餌やり（成都基地）",
+        "Panda Feeding (Chengdu Base)": "パンダ餌やり（成都基地�?,
         "Get close to adorable pandas and experience their daily life at Chengdu Panda Base": "かわいいパンダとふれあい、成都パンダ基地の日常を体験",
         "Boat on Jinjiang at night and enjoy Chengdu's unique night view": "夜の錦江で成都独特の夜景を楽しむ",
         "Sichuan Opera": "川劇",
         "Marvel at the magical face-changing and fire-spitting performances": "魔法のような変面と火吹きパフォーマンスに驚く"
     },
     ko: {
-        "Login/Sign Up": "로그인/회원가입",
-        "登录": "로그인",
-        "注册": "회원가입",
-        "邮箱": "이메일",
+        "Login/Sign Up": "로그�?회원가�?,
+        "登录": "로그�?,
+        "注册": "회원가�?,
+        "邮箱": "이메�?,
         "密码": "비밀번호",
-        "手机号码": "휴대폰 번호",
-        "请设置密码": "비밀번호를 설정하세요",
-        "请再次输入密码": "비밀번호를 다시 입력하세요",
-        "请输入邮箱": "이메일을 입력하세요",
-        "请输入密码": "비밀번호를 입력하세요",
-        "请输入手机号码": "휴대폰 번호를 입력하세요",
-        "Join now": "지금 가입하기",
-        "Experience now": "지금 경험하기",
+        "手机号码": "휴대�?번호",
+        "请设置密�?: "비밀번호�?설정하세�?,
+        "请再次输入密�?: "비밀번호�?다시 입력하세�?,
+        "请输入邮�?: "이메일을 입력하세�?,
+        "请输入密�?: "비밀번호�?입력하세�?,
+        "请输入手机号�?: "휴대�?번호�?입력하세�?,
+        "Join now": "지�?가입하�?,
+        "Experience now": "지�?경험하기",
         "Panda (Morning)": "판다(오전)",
-        "Visit Chengdu Panda Base and meet adorable pandas": "청두 판다 기지 방문, 귀여운 판다 만나기",
+        "Visit Chengdu Panda Base and meet adorable pandas": "청두 판다 기지 방문, 귀여운 판다 만나�?,
         "Imperial Banquet (Lunch)": "촉연부(점심)",
-        "Enjoy exquisite Sichuan cuisine and cultural show": "정교한 쓰촨 요리와 문화 공연 즐기기",
-        "Sichuan Opera (Afternoon)": "쓰촨 오페라(오후)",
-        "Face-changing, fire-spitting, and more": "변검, 불뿜기 등 공연",
-        "Night River Cruise": "야간 강 유람",
+        "Enjoy exquisite Sichuan cuisine and cultural show": "정교�?쓰촨 요리와 문화 공연 즐기�?,
+        "Sichuan Opera (Afternoon)": "쓰촨 오페�?오후)",
+        "Face-changing, fire-spitting, and more": "변검, 불뿜�?�?공연",
+        "Night River Cruise": "야간 �?유람",
         "Boat on Jinjiang and enjoy the night view": "진강에서 야경 감상",
         "City Service": "Day Local",
         "City Activity": "Day Local",
         "Imperial Banquet": "촉연부",
-        "The cultural performances and exquisite Sichuan cuisine of each dynasty in Chengdu": "청두 각 시대의 문화 공연과 정교한 쓰촨 요리",
+        "The cultural performances and exquisite Sichuan cuisine of each dynasty in Chengdu": "청두 �?시대�?문화 공연�?정교�?쓰촨 요리",
         "Panda Feeding (Chengdu Base)": "판다 먹이주기(청두 기지)",
-        "Get close to adorable pandas and experience their daily life at Chengdu Panda Base": "귀여운 판다와 가까이, 청두 판다 기지의 일상 체험",
-        "Boat on Jinjiang at night and enjoy Chengdu's unique night view": "진강에서 밤에 청두의 독특한 야경 감상",
-        "Sichuan Opera": "쓰촨 오페라",
-        "Marvel at the magical face-changing and fire-spitting performances": "마법 같은 변검과 불뿜기 공연에 감탄"
+        "Get close to adorable pandas and experience their daily life at Chengdu Panda Base": "귀여운 판다와 가까이, 청두 판다 기지�?일상 체험",
+        "Boat on Jinjiang at night and enjoy Chengdu's unique night view": "진강에서 밤에 청두�?독특�?야경 감상",
+        "Sichuan Opera": "쓰촨 오페�?,
+        "Marvel at the magical face-changing and fire-spitting performances": "마법 같은 변검�?불뿜�?공연�?감탄"
     },
     zh: {
-        "探索真正的中国": "探索真正的中国",
-        "当地人，带您体验地道的中国生活": "当地人，带您体验地道的中国生活",
+        "探索真正的中�?: "探索真正的中�?,
+        "当地人，带您体验地道的中国生�?: "当地人，带您体验地道的中国生�?,
         "注册": "注册",
         "登录": "登录",
         "翻译": "翻译",
@@ -1426,7 +1333,7 @@ const translations = {
         "请选择城市": "请选择城市",
         "成都": "成都",
         "重庆": "重庆",
-        "本地一日": "本地一日",
+        "本地一�?: "本地一�?,
         "深度体验": "深度体验",
         "搜索": "搜索",
         "你想去哪个城市？": "你想去哪个城市？",
@@ -1444,71 +1351,71 @@ const translations = {
         "城市": "城市",
         "放松": "放松",
         "体验地道本地生活，深入城市日常，适合时间有限的你": "体验地道本地生活，深入城市日常，适合时间有限的你",
-        "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好者": "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好者",
-        "大熊猫互动": "大熊猫互动",
-        "与国宝大熊猫亲密互动，感受自然与生命的奇妙": "与国宝大熊猫亲密互动，感受自然与生命的奇妙",
+        "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好�?: "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好�?,
+        "大熊猫互�?: "大熊猫互�?,
+        "与国宝大熊猫亲密互动，感受自然与生命的奇�?: "与国宝大熊猫亲密互动，感受自然与生命的奇�?,
         "蜀宴赋": "蜀宴赋",
         "品味川蜀美食盛宴，体验地道巴蜀文化": "品味川蜀美食盛宴，体验地道巴蜀文化",
         "夜游锦江": "夜游锦江",
         "夜色下泛舟锦江，领略成都独特夜景风情": "夜色下泛舟锦江，领略成都独特夜景风情",
         "服务": "服务",
-        "本地一日": "本地一日",
+        "本地一�?: "本地一�?,
         "深度体验": "深度体验",
         "体验地道本地生活，深入城市日常，适合时间有限的你": "体验地道本地生活，深入城市日常，适合时间有限的你",
-        "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好者": "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好者",
+        "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好�?: "深入探索文化与自然，获得更丰富的旅行记忆，适合深度爱好�?,
         "Join now": "立即加入",
         "Experience now": "立刻体验",
         "Panda (Morning)": "熊猫（上午）",
         "Visit Chengdu Panda Base and meet adorable pandas": "参观成都大熊猫基地，邂逅可爱的熊猫",
         "Imperial Banquet (Lunch)": "蜀宴赋（午餐）",
-        "Enjoy exquisite Sichuan cuisine and cultural show": "享用精致川菜和文化表演",
+        "Enjoy exquisite Sichuan cuisine and cultural show": "享用精致川菜和文化表�?,
         "Sichuan Opera (Afternoon)": "川剧（下午）",
         "Face-changing, fire-spitting, and more": "变脸、喷火等表演",
         "Night River Cruise": "夜游锦江",
-        "Boat on Jinjiang and enjoy the night view": "夜游锦江，欣赏夜景",
+        "Boat on Jinjiang and enjoy the night view": "夜游锦江，欣赏夜�?,
         "City Service": "Day Local",
         "City Activity": "Day Local",
         "Imperial Banquet": "蜀宴赋",
-        "The cultural performances and exquisite Sichuan cuisine of each dynasty in Chengdu": "成都各朝代的文化表演和精致川菜",
-        "Panda Feeding (Chengdu Base)": "大熊猫喂养（成都基地）",
-        "Get close to adorable pandas and experience their daily life at Chengdu Panda Base": "近距离接触可爱的熊猫，体验成都大熊猫基地的日常生活",
+        "The cultural performances and exquisite Sichuan cuisine of each dynasty in Chengdu": "成都各朝代的文化表演和精致川�?,
+        "Panda Feeding (Chengdu Base)": "大熊猫喂养（成都基地�?,
+        "Get close to adorable pandas and experience their daily life at Chengdu Panda Base": "近距离接触可爱的熊猫，体验成都大熊猫基地的日常生�?,
         "Night River Cruise": "夜游锦江",
-        "Boat on Jinjiang at night and enjoy Chengdu's unique night view": "夜游锦江，欣赏成都独特夜景",
+        "Boat on Jinjiang at night and enjoy Chengdu's unique night view": "夜游锦江，欣赏成都独特夜�?,
         "Sichuan Opera": "川剧",
         "Marvel at the magical face-changing and fire-spitting performances": "欣赏神奇的变脸和喷火表演",
         "Login/Sign Up": "登录/注册"
     },
     th: {
-        "Login/Sign Up": "เข้าสู่ระบบ/สมัครสมาชิก",
+        "Login/Sign Up": "เข้าสู่ระบบ/สมัครสมาชิ�?,
         "登录": "เข้าสู่ระบบ",
-        "注册": "สมัครสมาชิก",
+        "注册": "สมัครสมาชิ�?,
         "邮箱": "อีเมล",
         "密码": "รหัสผ่าน",
         "手机号码": "เบอร์โทรศัพท์มือถือ",
-        "请设置密码": "กรุณาตั้งรหัสผ่าน",
-        "请再次输入密码": "กรุณาใส่รหัสผ่านอีกครั้ง",
-        "请输入邮箱": "กรุณาใส่อีเมล",
-        "请输入密码": "กรุณาใส่รหัสผ่าน",
-        "请输入手机号码": "กรุณาใส่เบอร์โทรศัพท์มือถือ",
+        "请设置密�?: "กรุณาตั้งรหัสผ่า�?,
+        "请再次输入密�?: "กรุณาใส่รหัสผ่านอีกครั้ง",
+        "请输入邮�?: "กรุณาใส่อีเมล",
+        "请输入密�?: "กรุณาใส่รหัสผ่าน",
+        "请输入手机号�?: "กรุณาใส่เบอร์โทรศัพท์มือถือ",
         "Join now": "เข้าร่วมทันที",
-        "Experience now": "สัมผัสประสบการณ์ทันที",
-        "Panda (Morning)": "แพนด้า (เช้า)",
-        "Visit Chengdu Panda Base and meet adorable pandas": "เยี่ยมชมฐานแพนด้าเฉิงตู พบกับแพนด้าน่ารัก",
-        "Imperial Banquet (Lunch)": "งานเลี้ยงจักรพรรดิ (กลางวัน)",
+        "Experience now": "สัมผัสประสบการณ์ทันท�?,
+        "Panda (Morning)": "แพนด้า (เช้�?",
+        "Visit Chengdu Panda Base and meet adorable pandas": "เยี่ยมชมฐานแพนด้าเฉิงต�?พบกับแพนด้าน่ารั�?,
+        "Imperial Banquet (Lunch)": "งานเลี้ยงจักรพรรดิ (กลางวั�?",
         "Enjoy exquisite Sichuan cuisine and cultural show": "เพลิดเพลินกับอาหารเสฉวนและการแสดงวัฒนธรรม",
         "Sichuan Opera (Afternoon)": "งิ้วเสฉวน (บ่าย)",
-        "Face-changing, fire-spitting, and more": "การเปลี่ยนหน้ากาก พ่นไฟ และอื่นๆ",
+        "Face-changing, fire-spitting, and more": "การเปลี่ยนหน้ากา�?พ่นไ�?และอื่นๆ",
         "Night River Cruise": "ล่องเรือยามค่ำคืน",
         "Boat on Jinjiang and enjoy the night view": "ล่องเรือแม่น้ำจินเจียง ชมวิวกลางคืน",
         "City Service": "Day Local",
         "City Activity": "Day Local",
         "Imperial Banquet": "งานเลี้ยงจักรพรรดิ",
-        "The cultural performances and exquisite Sichuan cuisine of each dynasty in Chengdu": "การแสดงวัฒนธรรมและอาหารเสฉวนของแต่ละราชวงศ์ในเฉิงตู",
-        "Panda Feeding (Chengdu Base)": "ให้อาหารแพนด้า (ฐานเฉิงตู)",
-        "Get close to adorable pandas and experience their daily life at Chengdu Panda Base": "ใกล้ชิดแพนด้าน่ารักและสัมผัสชีวิตประจำวันของพวกเขาที่ฐานแพนด้าเฉิงตู",
-        "Boat on Jinjiang at night and enjoy Chengdu's unique night view": "ล่องเรือแม่น้ำจินเจียงยามค่ำคืน ชมวิวเฉิงตู",
+        "The cultural performances and exquisite Sichuan cuisine of each dynasty in Chengdu": "การแสดงวัฒนธรรมและอาหารเสฉวนของแต่ละราชวงศ์ในเฉิงต�?,
+        "Panda Feeding (Chengdu Base)": "ให้อาหารแพนด้า (ฐานเฉิงต�?",
+        "Get close to adorable pandas and experience their daily life at Chengdu Panda Base": "ใกล้ชิดแพนด้าน่ารักและสัมผัสชีวิตประจำวันของพวกเขาที่ฐานแพนด้าเฉิงต�?,
+        "Boat on Jinjiang at night and enjoy Chengdu's unique night view": "ล่องเรือแม่น้ำจินเจียงยามค่ำคื�?ชมวิวเฉิงต�?,
         "Sichuan Opera": "งิ้วเสฉวน",
-        "Marvel at the magical face-changing and fire-spitting performances": "ตื่นตาตื่นใจกับการเปลี่ยนหน้ากากและพ่นไฟ"
+        "Marvel at the magical face-changing and fire-spitting performances": "ตื่นตาตื่นใจกับการเปลี่ยนหน้ากากและพ่นไ�?
     },
     ms: {
         "Login/Sign Up": "Log Masuk/Daftar",
@@ -1517,11 +1424,11 @@ const translations = {
         "邮箱": "E-mel",
         "密码": "Kata Laluan",
         "手机号码": "Nombor Telefon",
-        "请设置密码": "Sila tetapkan kata laluan",
-        "请再次输入密码": "Sila masukkan kata laluan sekali lagi",
-        "请输入邮箱": "Sila masukkan e-mel",
-        "请输入密码": "Sila masukkan kata laluan",
-        "请输入手机号码": "Sila masukkan nombor telefon",
+        "请设置密�?: "Sila tetapkan kata laluan",
+        "请再次输入密�?: "Sila masukkan kata laluan sekali lagi",
+        "请输入邮�?: "Sila masukkan e-mel",
+        "请输入密�?: "Sila masukkan kata laluan",
+        "请输入手机号�?: "Sila masukkan nombor telefon",
         "Join now": "Sertai sekarang",
         "Experience now": "Alami sekarang",
         "Panda (Morning)": "Panda (Pagi)",
@@ -1548,31 +1455,31 @@ const translations = {
         "注册": "Đăng ký",
         "邮箱": "Email",
         "密码": "Mật khẩu",
-        "手机号码": "Số điện thoại",
-        "请设置密码": "Vui lòng đặt mật khẩu",
-        "请再次输入密码": "Vui lòng nhập lại mật khẩu",
-        "请输入邮箱": "Vui lòng nhập email",
-        "请输入密码": "Vui lòng nhập mật khẩu",
-        "请输入手机号码": "Vui lòng nhập số điện thoại",
+        "手机号码": "S�?điện thoại",
+        "请设置密�?: "Vui lòng đặt mật khẩu",
+        "请再次输入密�?: "Vui lòng nhập lại mật khẩu",
+        "请输入邮�?: "Vui lòng nhập email",
+        "请输入密�?: "Vui lòng nhập mật khẩu",
+        "请输入手机号�?: "Vui lòng nhập s�?điện thoại",
         "Join now": "Tham gia ngay",
         "Experience now": "Trải nghiệm ngay",
         "Panda (Morning)": "Gấu trúc (Buổi sáng)",
-        "Visit Chengdu Panda Base and meet adorable pandas": "Tham quan Căn cứ Gấu trúc Thành Đô và gặp gỡ những chú gấu trúc dễ thương",
+        "Visit Chengdu Panda Base and meet adorable pandas": "Tham quan Căn c�?Gấu trúc Thành Đô và gặp g�?những chú gấu trúc d�?thương",
         "Imperial Banquet (Lunch)": "Yến tiệc Hoàng gia (Bữa trưa)",
-        "Enjoy exquisite Sichuan cuisine and cultural show": "Thưởng thức ẩm thực Tứ Xuyên tinh tế và chương trình văn hóa",
-        "Sichuan Opera (Afternoon)": "Kịch Tứ Xuyên (Buổi chiều)",
+        "Enjoy exquisite Sichuan cuisine and cultural show": "Thưởng thức ẩm thực T�?Xuyên tinh t�?và chương trình văn hóa",
+        "Sichuan Opera (Afternoon)": "Kịch T�?Xuyên (Buổi chiều)",
         "Face-changing, fire-spitting, and more": "Thay mặt, phun lửa và nhiều hơn nữa",
         "Night River Cruise": "Du thuyền sông đêm",
         "Boat on Jinjiang and enjoy the night view": "Du thuyền trên sông Jinjiang và ngắm cảnh đêm",
         "City Service": "Day Local",
         "City Activity": "Day Local",
         "Imperial Banquet": "Yến tiệc Hoàng gia",
-        "The cultural performances and exquisite Sichuan cuisine of each dynasty in Chengdu": "Các buổi biểu diễn văn hóa và ẩm thực Tứ Xuyên tinh tế của từng triều đại ở Thành Đô",
-        "Panda Feeding (Chengdu Base)": "Cho Gấu trúc ăn (Căn cứ Thành Đô)",
-        "Get close to adorable pandas and experience their daily life at Chengdu Panda Base": "Gần gũi với gấu trúc dễ thương và trải nghiệm cuộc sống hàng ngày của chúng tại Căn cứ Gấu trúc Thành Đô",
+        "The cultural performances and exquisite Sichuan cuisine of each dynasty in Chengdu": "Các buổi biểu diễn văn hóa và ẩm thực T�?Xuyên tinh t�?của từng triều đại �?Thành Đô",
+        "Panda Feeding (Chengdu Base)": "Cho Gấu trúc ăn (Căn c�?Thành Đô)",
+        "Get close to adorable pandas and experience their daily life at Chengdu Panda Base": "Gần gũi với gấu trúc d�?thương và trải nghiệm cuộc sống hàng ngày của chúng tại Căn c�?Gấu trúc Thành Đô",
         "Boat on Jinjiang at night and enjoy Chengdu's unique night view": "Du thuyền trên sông Jinjiang vào ban đêm và ngắm nhìn cảnh đêm độc đáo của Thành Đô",
-        "Sichuan Opera": "Kịch Tứ Xuyên",
-        "Marvel at the magical face-changing and fire-spitting performances": "Trầm trồ trước màn thay mặt và phun lửa kỳ diệu"
+        "Sichuan Opera": "Kịch T�?Xuyên",
+        "Marvel at the magical face-changing and fire-spitting performances": "Trầm tr�?trước màn thay mặt và phun lửa k�?diệu"
     }
 };
 function setLang(lang) {
@@ -1589,7 +1496,7 @@ function applyTranslation(lang) {
     const dict = translations[lang];
     if (!dict) return;
     
-    // 优先翻译所有带data-i18n的元素
+    // 优先翻译所有带data-i18n的元�?
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (dict[key]) el.textContent = dict[key];
@@ -1609,7 +1516,7 @@ function applyTranslation(lang) {
         }
     });
 }
-// 移除重复的事件监听器，因为第一个script已经处理了
+// 移除重复的事件监听器，因为第一个script已经处理�?
 // document.getElementById('translate-btn').onclick = function(e) {
 //     e.stopPropagation();
 //     const menu = document.getElementById('translate-menu');
@@ -1628,31 +1535,4 @@ document.querySelectorAll('.translate-option').forEach(opt => {
         setLang(this.dataset.lang);
         const menu = document.getElementById('translate-menu');
         if (menu) menu.style.display = 'none';
-        // 使用当前协议重新加载页面，确保所有内容切换
-        window.location.reload();
-    };
-});
-document.body.addEventListener('click', function() {
-    const menu = document.getElementById('translate-menu');
-    if (menu) menu.style.display = 'none';
-});
-window.addEventListener('DOMContentLoaded', function() {
-    const lang = localStorage.getItem('lang');
-    if (lang) {
-        applyTranslation(lang);
-        if (lang === 'en') {
-            document.body.classList.add('lang-en');
-        } else {
-            document.body.classList.remove('lang-en');
-        }
-    }
-});
-  // 手机端修改搜索栏placeholder
-  document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('search-input');
-    if (searchInput && window.innerWidth <= 600) {
-      searchInput.placeholder = 'search';
-    }
-  });
-</script>
-</html> 
+        // 使用当前协议重新加载页面，确保所有内容切�?
